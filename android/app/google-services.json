@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "764761524539",
+    "project_id": "digiapp-721c2",
+    "storage_bucket": "digiapp-721c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764761524539:android:220efb320c37a672440f1e",
+        "android_client_info": {
+          "package_name": "com.example.time_capsule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764761524539-3jfjsgk6gfe207gphg46pe8o4ubhkte1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdeLY62FN7XZoshHIihaC2cnZJUu-DERQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764761524539-3jfjsgk6gfe207gphg46pe8o4ubhkte1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
