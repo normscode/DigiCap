@@ -7,7 +7,6 @@ import 'package:time_capsule/src/features/authentication/screens/main_screen_pag
 import '../../../utils/widgets/appbar_widget.dart';
 import '../controllers/main_screen_controller.dart';
 import 'package:floating_action_bubble_custom/floating_action_bubble_custom.dart';
-
 import 'floating_navigation_pages/add_memory_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -29,6 +28,8 @@ class _MainScreenState extends State<MainScreen>
 
   late Animation<double> _animation;
   late AnimationController _animationController;
+
+  
 
   @override
   void initState() {
@@ -56,11 +57,6 @@ class _MainScreenState extends State<MainScreen>
         child: currentScreen,
         bucket: bucket,
       ),
-      // body: Obx(
-      //     () => controller.menuItems[controller.currentPageIndex.value].page),
-      // floatingActionButton: mainFloatingActionButton(),
-      // bottomNavigationBar: BottomNavigationBarWidget(),
-
       floatingActionButton: FloatingActionBubble(
         // animation controller
         animation: _animation,
@@ -119,14 +115,6 @@ class _MainScreenState extends State<MainScreen>
           ),
         ],
       ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(Icons.add),
-      //   backgroundColor: Colors.black87,
-      //   foregroundColor: Colors.yellow,
-      //   shape: CircleBorder(),
-      // ),
       bottomNavigationBar: BottomAppBar(
         notchMargin: 5.0,
         shape: CircularNotchedRectangle(),

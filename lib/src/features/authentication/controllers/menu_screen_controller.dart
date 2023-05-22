@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:time_capsule/src/features/authentication/screens/main_screen.dart';
+import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 
 import '../screens/menu_pages/albums_page.dart';
 import '../screens/menu_pages/memories_page.dart';
@@ -20,7 +22,7 @@ class MenusController extends GetxController {
       iconBorderRadius: BorderRadius.circular(10),
       page: NewsFeedPage(),
       onTap: () {
-        Get.to(() => NewsFeedPage());
+        Get.offAll(() => MainScreen());
         debugPrint("NewsPageTapped!");
       },
     ),

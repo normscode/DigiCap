@@ -48,7 +48,7 @@ class AuthController extends GetxController {
         password: password.text,
       );
       // Signup successful, you can now handle the user creation
-      User? user = userCredential.user;
+      User? firebaseUser = userCredential.user;
       // Save additional user details if needed
     } on FirebaseAuthException catch (e) {
       // Handle specific FirebaseAuthException errors
