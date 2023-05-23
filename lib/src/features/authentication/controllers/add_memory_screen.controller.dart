@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/src/repository/user_memories_repository.dart';
@@ -14,6 +15,9 @@ class MemoryController extends GetxController {
   final photoURL = TextEditingController();
   String imageURL = "";
   final memoryRepo = Get.put(MemoriesRepository());
+  get isEditing => null;
+
+  get date => null;
 
   //Photos Fields
 
@@ -21,9 +25,14 @@ class MemoryController extends GetxController {
     await memoryRepo.addMemories(memory);
   }
 
-  String getCurrentFormattedDate() {
+  Timestamp getCurrentFormattedDate() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('d MMM y').format(now);
+    return Timestamp.fromDate(now);
+  }
+
+  String formatTimeStamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    String formattedDate = DateFormat('d MMM y').format(dateTime);
     return formattedDate;
   }
 }

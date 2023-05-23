@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:time_capsule/src/features/authentication/controllers/authentication_controller.dart';
 
 import '../../../repository/user_memories_repository.dart';
@@ -16,5 +18,42 @@ class HomeScreenController extends GetxController {
     } else {
       Get.snackbar("Error", "Login to Continue");
     }
+  }
+
+  //Date Formatting
+  String formatTimeStamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    String formattedDate = DateFormat('d MMM y').format(dateTime);
+    return formattedDate;
+  }
+
+  String formatTimeDuration(Timestamp timestamp) {
+    DateTime memoryDateTime = timestamp.toDate();
+    DateTime currentDateTime = DateTime.now();
+    Duration duration = currentDateTime.difference(memoryDateTime);
+
+    // Calculate the time duration in days, hours, minutes, and seconds
+    int days = duration.inDays;
+    int hours = duration.inHours.remainder(24);
+    int minutes = duration.inMinutes.remainder(60);
+    int seconds = duration.inSeconds.remainder(60);
+
+    // Create the formatted time duration string
+    String formattedDuration = '';
+
+    // Format the time duration based on different time units
+    if (days > 0) {
+      formattedDuration += '${days}d';
+    } else if (hours > 0) {
+      formattedDuration += '${hours}h';
+    } else if (minutes > 0) {
+      formattedDuration += '${minutes}m';
+    } else if (seconds > 0) {
+      formattedDuration += '${seconds}s';
+    } else {
+      formattedDuration += 'Just now';
+    }
+
+    return formattedDuration;
   }
 }

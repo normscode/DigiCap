@@ -33,7 +33,7 @@ class MemoriesRepository extends GetxController {
     });
   }
 
-  //Read Data From Firestore
+  //Get User Data Memories From Firestore
   Stream<List<MemoryModel>> fetchCurrentUserMemories() {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -44,6 +44,7 @@ class MemoriesRepository extends GetxController {
         .collection('Users')
         .doc(user.email)
         .collection('Memories')
+        .orderBy('Date', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();
@@ -54,5 +55,15 @@ class MemoriesRepository extends GetxController {
                 photoURL: data['PhotoURL'],
               );
             }).toList());
+  }
+
+  //Update User Data Memories From Firestore
+  Future<void> updateUserMemories(MemoryModel memory) async {
+    await _db
+        .collection("Users")
+        .doc(_auth.currentUser!.email)
+        .collection("Memories")
+        .doc(memory.id)
+        .update(memory.toJson());
   }
 }

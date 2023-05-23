@@ -4,7 +4,7 @@ class MemoryModel {
   final String? id;
   final String title;
   final String description;
-  final String? date;
+  final Timestamp? date;
   final String? photoURL;
 
   const MemoryModel({

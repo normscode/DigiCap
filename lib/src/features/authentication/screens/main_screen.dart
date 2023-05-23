@@ -29,8 +29,6 @@ class _MainScreenState extends State<MainScreen>
   late Animation<double> _animation;
   late AnimationController _animationController;
 
-  
-
   @override
   void initState() {
     super.initState();
@@ -222,7 +220,7 @@ class _MainScreenState extends State<MainScreen>
                           color: currentTab == 3 ? Colors.orange : Colors.grey,
                         ),
                         Text(
-                          "Tools",
+                          "Menu",
                           style: TextStyle(
                               color: currentTab == 3
                                   ? Colors.orange

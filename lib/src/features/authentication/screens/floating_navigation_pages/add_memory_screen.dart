@@ -16,6 +16,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   File? myImage;
 
   final MemoryController memoryController = Get.put(MemoryController());
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,87 +27,151 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Title',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8.0),
-              TextFormField(
-                controller: memoryController.title,
-                decoration: InputDecoration(
-                  hintText: 'My Memory on ' +
-                      memoryController.getCurrentFormattedDate(),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text(
-                'Description',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8.0),
-              TextFormField(
-                controller: memoryController.description,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  hintText: 'Enter the description',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text(
-                'Photos',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8.0),
-              InkWell(
-                onTap: () {
-                  openBottomSheet();
-                },
-                child: Container(
-                  width: 200,
-                  height: 200,
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(
+                      10.0), // Optional: Add padding to the container
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: myImage == null
-                      ? const Center(
-                          child: Icon(
-                            Icons.upload_file,
-                            size: 50,
-                          ),
-                        )
-                      : Image.file(
-                          myImage!,
-                          fit: BoxFit.cover,
+                    // Optional: Add decoration properties to the container
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Title',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      SizedBox(height: 8.0),
+                      TextFormField(
+                        controller: memoryController.title,
+                        decoration: InputDecoration(
+                          hintText: 'My Memory on ' +
+                              memoryController.formatTimeStamp(
+                                  memoryController.getCurrentFormattedDate()),
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a title';
+                          }
+                          return null; // Return null if the input is valid
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              // Implement your photo selection/capture widget here
-              SizedBox(height: 16.0),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () async {
-                  // Handle save memory logic
-                  await uploadFile();
+                SizedBox(height: 16.0),
+                Container(
+                  padding: EdgeInsets.all(
+                      10.0), // Optional: Add padding to the container
+                  decoration: BoxDecoration(
+                    // Optional: Add decoration properties to the container
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Description',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      TextFormField(
+                        controller: memoryController.description,
+                        maxLines: 4,
+                        decoration: InputDecoration(
+                          hintText: 'Enter the description',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a description';
+                          }
+                          return null; // Return null if the input is valid
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Photos',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                InkWell(
+                  onTap: () {
+                    openBottomSheet();
+                  },
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: myImage == null
+                        ? const Center(
+                            child: Icon(
+                              Icons.upload_file,
+                              size: 50,
+                            ),
+                          )
+                        : Image.file(
+                            myImage!,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+                // Implement your photo selection/capture widget here
+                SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      // If the form is valid, save the memory
+                      await uploadFile();
+                      Get.to(() => MainScreen());
+                    }
+                    // If the form is valid, save the memory
 
-                  Get.to(() => MainScreen());
-                },
-                child: Text('Save Memory'),
-              ),
-            ],
+                    // Handle save memory logic
+                  },
+                  child: Text('Save Memory'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -175,38 +240,49 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   }
 
   Future<void> uploadFile() async {
-    final file = myImage!;
-    final metaData = SettableMetadata(contentType: 'image/jpeg');
-    final storageRef = FirebaseStorage.instance.ref();
-    Reference ref = storageRef
-        .child('memories/${DateTime.now().microsecondsSinceEpoch}.jpg');
-    final uploadTask = ref.putFile(file, metaData);
+    if (myImage != null) {
+      final file = myImage;
+      final metaData = SettableMetadata(contentType: 'image/jpeg');
+      final storageRef = FirebaseStorage.instance.ref();
+      Reference ref = storageRef
+          .child('memories/${DateTime.now().microsecondsSinceEpoch}.jpg');
+      final uploadTask = ref.putFile(file!, metaData);
 
-    uploadTask.snapshotEvents.listen((event) async {
-      switch (event.state) {
-        case TaskState.running:
-          print("File is uploading");
-          break;
-        case TaskState.success:
-          ref.getDownloadURL().then((value) => {print(value)});
-          memoryController.imageURL = await ref.getDownloadURL();
-          final memory = MemoryModel(
-            title: memoryController.title.text.trim(),
-            description: memoryController.description.text.trim(),
-            date: memoryController.getCurrentFormattedDate(),
-            photoURL: memoryController.imageURL.trim(),
-          );
-          memoryController.createMemories(memory);
-        case TaskState.paused:
-          print("File upload was paused");
-          break;
-        case TaskState.canceled:
-          print("File upload was cancelled");
-          break;
-        case TaskState.error:
-          print("File upload error!");
-          break;
-      }
-    });
+      uploadTask.snapshotEvents.listen((event) async {
+        switch (event.state) {
+          case TaskState.running:
+            print("File is uploading");
+            break;
+          case TaskState.success:
+            ref.getDownloadURL().then((value) => {print(value)});
+            memoryController.imageURL = await ref.getDownloadURL();
+            final memory = MemoryModel(
+              title: memoryController.title.text.trim(),
+              description: memoryController.description.text.trim(),
+              date: memoryController.getCurrentFormattedDate(),
+              photoURL: memoryController.imageURL.trim(),
+            );
+            memoryController.createMemories(memory);
+            break;
+          case TaskState.paused:
+            print("File upload was paused");
+            break;
+          case TaskState.canceled:
+            print("File upload was cancelled");
+            break;
+          case TaskState.error:
+            print("File upload error!");
+            break;
+        }
+      });
+    } else {
+      // Handle the case when no picture is selected
+      final memory = MemoryModel(
+        title: memoryController.title.text.trim(),
+        description: memoryController.description.text.trim(),
+        date: memoryController.getCurrentFormattedDate(),
+      );
+      memoryController.createMemories(memory);
+    }
   }
 }
