@@ -13,16 +13,30 @@ class MemoryController extends GetxController {
   final title = TextEditingController();
   final description = TextEditingController();
   final photoURL = TextEditingController();
+  Timestamp? date;
+  
+
   String imageURL = "";
   final memoryRepo = Get.put(MemoriesRepository());
-  get isEditing => null;
 
-  get date => null;
+  String memoryID = "";
 
   //Photos Fields
 
+  //Add Memory
   Future<void> createMemories(MemoryModel memory) async {
     await memoryRepo.addMemories(memory);
+  }
+
+  //Update Memory
+  Future<void> editMemories(MemoryModel memory, String memoryID) async {
+    await memoryRepo.updateMemory(memory, memoryID);
+  }
+
+  //Delete Memory
+
+  Future<void> deleteMemories(String memoryID) async {
+    await memoryRepo.deleteMemory(memoryID);
   }
 
   Timestamp getCurrentFormattedDate() {

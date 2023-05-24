@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,6 @@ class MemoriesRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //Create Data store to Firestore
   addMemories(MemoryModel memory) {
     final userEmail = _auth.currentUser!.email;
     _db
@@ -49,6 +49,7 @@ class MemoriesRepository extends GetxController {
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();
               return MemoryModel(
+                id: doc.id,
                 title: data['Title'],
                 description: data['Description'],
                 date: data['Date'],
@@ -58,12 +59,34 @@ class MemoriesRepository extends GetxController {
   }
 
   //Update User Data Memories From Firestore
-  Future<void> updateUserMemories(MemoryModel memory) async {
+  Future<void> updateMemory(MemoryModel memory, String memoryID) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw Exception("User not logged in");
+    }
+
+    final memoryRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.email)
+        .collection('Memories')
+        .doc(memoryID); // Assuming 'id' is the document ID of the memory
+
+    await memoryRef.update({
+      'Title': memory.title,
+      'Description': memory.description,
+      'Date': memory.date,
+      'PhotoURL': memory.photoURL,
+    });
+  }
+
+  Future<void> deleteMemory(String memoryID) async {
     await _db
         .collection("Users")
         .doc(_auth.currentUser!.email)
         .collection("Memories")
-        .doc(memory.id)
-        .update(memory.toJson());
+        .doc(memoryID)
+        .delete();
+
+    Get.snackbar("Memory Deleted!", 'You have successfully deleted a memory');
   }
 }

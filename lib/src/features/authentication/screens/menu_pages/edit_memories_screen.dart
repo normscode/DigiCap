@@ -1,29 +1,41 @@
 import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:time_capsule/src/features/authentication/models/memory_model.dart';
-import 'package:time_capsule/src/features/authentication/screens/main_screen.dart';
-
 import '../../controllers/add_memory_screen_controller.dart';
+import '../../models/memory_model.dart';
 
-class SaveMemoryScreen extends StatefulWidget {
+class UpdateMemoryScreen extends StatefulWidget {
+  final MemoryModel memory;
+
+  UpdateMemoryScreen({required this.memory});
+
   @override
-  State<SaveMemoryScreen> createState() => _SaveMemoryScreenState();
+  _UpdateMemoryScreenState createState() => _UpdateMemoryScreenState();
 }
 
-class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
+class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final MemoryController memoryController = MemoryController();
   File? myImage;
 
-  final MemoryController memoryController = Get.put(MemoryController());
-  final formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+    memoryController.title.text = widget.memory.title;
+    memoryController.description.text = widget.memory.description;
+    memoryController.date = widget.memory.date;
+    memoryController.imageURL = widget.memory.photoURL!;
+    memoryController.memoryID = widget.memory.id!;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Save Memory'),
+        title: Text('Update Memory'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -34,10 +46,8 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(
-                      10.0), // Optional: Add padding to the container
+                  padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    // Optional: Add decoration properties to the container
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
@@ -63,16 +73,14 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                       TextFormField(
                         controller: memoryController.title,
                         decoration: InputDecoration(
-                          hintText: 'My Memory on ' +
-                              memoryController.formatTimeStamp(
-                                  memoryController.getCurrentFormattedDate()),
+                          hintText: 'My Memory on ${DateTime.now().toString()}',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter a title';
                           }
-                          return null; // Return null if the input is valid
+                          return null;
                         },
                       ),
                     ],
@@ -80,10 +88,8 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                 ),
                 SizedBox(height: 16.0),
                 Container(
-                  padding: EdgeInsets.all(
-                      10.0), // Optional: Add padding to the container
+                  padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    // Optional: Add decoration properties to the container
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
@@ -117,7 +123,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                           if (value!.isEmpty) {
                             return 'Please enter a description';
                           }
-                          return null; // Return null if the input is valid
+                          return null;
                         },
                       ),
                     ],
@@ -140,8 +146,9 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                     width: 200,
                     height: 200,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8)),
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     child: myImage == null
                         ? const Center(
                             child: Icon(
@@ -155,21 +162,21 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                           ),
                   ),
                 ),
-                // Implement your photo selection/capture widget here
-                SizedBox(height: 16.0),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      // If the form is valid, save the memory
-                      await uploadFile();
-                      Get.to(() => MainScreen());
-                    }
-                    // If the form is valid, save the memory
+                      // If the form is valid, update the memory
 
-                    // Handle save memory logic
+                      // Handle save memory logic
+                      await updateFile(memoryController.memoryID);
+
+                      // Call the update memory function with widget.memory
+
+                      Navigator.pop(context); // Go back to the previous screen
+                    }
                   },
-                  child: Text('Save Memory'),
+                  child: Text('Update Memory'),
                 ),
               ],
             ),
@@ -240,7 +247,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
     }
   }
 
-  Future<void> uploadFile() async {
+  Future<void> updateFile(String memoryID) async {
     if (myImage != null) {
       final file = myImage;
       final metaData = SettableMetadata(contentType: 'image/jpeg');
@@ -263,7 +270,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
               date: memoryController.getCurrentFormattedDate(),
               photoURL: memoryController.imageURL.trim(),
             );
-            memoryController.createMemories(memory);
+            memoryController.editMemories(memory, memoryController.memoryID);
             break;
           case TaskState.paused:
             print("File upload was paused");
@@ -281,9 +288,10 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
       final memory = MemoryModel(
         title: memoryController.title.text.trim(),
         description: memoryController.description.text.trim(),
+        photoURL: memoryController.imageURL.trim(),
         date: memoryController.getCurrentFormattedDate(),
       );
-      memoryController.createMemories(memory);
+      memoryController.editMemories(memory, memoryController.memoryID);
     }
   }
 }

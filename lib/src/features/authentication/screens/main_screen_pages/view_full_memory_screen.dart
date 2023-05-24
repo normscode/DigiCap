@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/add_memory_screen.controller.dart';
 import '../../controllers/home_screen_controller.dart';
 import '../../models/memory_model.dart';
 

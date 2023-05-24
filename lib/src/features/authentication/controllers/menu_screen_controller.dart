@@ -4,7 +4,7 @@ import 'package:time_capsule/src/features/authentication/screens/main_screen.dar
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 
 import '../screens/menu_pages/albums_page.dart';
-import '../screens/menu_pages/memories_page.dart';
+import '../screens/menu_pages/manage_memories_page.dart';
 import '../screens/menu_pages/newsfeed_page.dart';
 import 'authentication_controller.dart';
 

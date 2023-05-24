@@ -32,8 +32,10 @@ class HomeScreenController extends GetxController {
     DateTime currentDateTime = DateTime.now();
     Duration duration = currentDateTime.difference(memoryDateTime);
 
-    // Calculate the time duration in days, hours, minutes, and seconds
-    int days = duration.inDays;
+    // Calculate the time duration in years, months, days, hours, minutes, and seconds
+    int years = duration.inDays ~/ 365;
+    int months = (duration.inDays % 365) ~/ 30;
+    int days = (duration.inDays % 30);
     int hours = duration.inHours.remainder(24);
     int minutes = duration.inMinutes.remainder(60);
     int seconds = duration.inSeconds.remainder(60);
@@ -42,18 +44,22 @@ class HomeScreenController extends GetxController {
     String formattedDuration = '';
 
     // Format the time duration based on different time units
-    if (days > 0) {
-      formattedDuration += '${days}d';
+    if (years > 0) {
+      formattedDuration += '${years}y ';
+    } else if (months > 0) {
+      formattedDuration += '${months}mo ';
+    } else if (days > 0) {
+      formattedDuration += '${days}d ';
     } else if (hours > 0) {
-      formattedDuration += '${hours}h';
+      formattedDuration += '${hours}h ';
     } else if (minutes > 0) {
-      formattedDuration += '${minutes}m';
+      formattedDuration += '${minutes}m ';
     } else if (seconds > 0) {
       formattedDuration += '${seconds}s';
     } else {
-      formattedDuration += 'Just now';
+      formattedDuration = 'Just now';
     }
 
-    return formattedDuration;
+    return formattedDuration.trim();
   }
 }

@@ -1,25 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ms_undraw/ms_undraw.dart';
-import 'package:time_capsule/src/features/authentication/controllers/home_screen_controller.dart';
-import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/view_full_memory_screen.dart';
-import 'package:time_capsule/src/utils/widgets/appbar_widget.dart';
+import 'package:time_capsule/src/features/authentication/controllers/add_memory_screen_controller.dart';
+import 'package:time_capsule/src/features/authentication/screens/menu_pages/edit_memories_screen.dart';
 
+import '../../controllers/home_screen_controller.dart';
 import '../../models/memory_model.dart';
+import '../main_screen_pages/view_full_memory_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+class MemoriesPage extends StatelessWidget {
   void navigateToViewFullMemory(MemoryModel memory) {
     Get.to(() => ViewFullMemoryScreen(memory: memory));
+  }
+
+  void navigateToUpdateScreenMemory(MemoryModel memory) {
+    Get.to(() => UpdateMemoryScreen(memory: memory));
   }
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
+    final memoryController = Get.put(MemoryController());
     return Scaffold(
+      appBar: AppBar(title: Text("Manage Memories")),
       body: Container(
         child: StreamBuilder<List<MemoryModel>>(
           stream: controller.getUserData(),
@@ -58,6 +62,7 @@ class HomeScreen extends StatelessWidget {
                     final MemoryModel memory = memories[index];
                     String timeDuration =
                         controller.formatTimeDuration(memory.date!);
+                    print(memory.id);
                     return Card(
                       margin:
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -68,11 +73,6 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                CircleAvatar(
-                                  radius: 24.0,
-                                  backgroundImage: NetworkImage(
-                                      "https://th.bing.com/th/id/R.782adc2b6062ab00461359da5b02b753?rik=Y%2fJZM98TPsfXxA&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fProfile-PNG-File.png&ehk=nJ0Yls4aiMdSvREO5hB2GU7Hc3cL04UQeojwLhvL8Gk%3d&risl=&pid=ImgRaw&r=0"),
-                                ),
                                 SizedBox(width: 16.0),
                                 Expanded(
                                   child: Column(
@@ -95,13 +95,6 @@ class HomeScreen extends StatelessWidget {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      Text(
-                                        timeDuration,
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey,
-                                        ),
-                                      )
                                     ],
                                   ),
                                 ),
@@ -131,16 +124,64 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 8.0),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton.icon(
-                                onPressed: () {
-                                  // Navigate to the Full Memory Screen to view/edit the memory
-                                  navigateToViewFullMemory(memory);
-                                },
-                                icon: Icon(Icons.open_in_new),
-                                label: Text('View Full Memory'),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  color: Colors.orange,
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    // Handle edit memory logic here
+                                    // Navigate to the Edit Memory Screen
+                                    navigateToUpdateScreenMemory(memory);
+                                  },
+                                ),
+                                IconButton(
+                                  color: Colors.red,
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    // Handle delete memory logic here
+                                    // Show a confirmation dialog before deleting the memory
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text('Delete Memory'),
+                                        content: Text(
+                                            'Are you sure you want to delete this memory?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              // Perform the delete operation
+                                              // Delete the memory from the list or database
+                                              memoryController
+                                                  .deleteMemories(memory.id!);
+                                              Navigator.pop(
+                                                  context); // Close the dialog
+                                            },
+                                            child: Text('Delete'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(
+                                                  context); // Close the dialog
+                                            },
+                                            child: Text('Cancel'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(width: 16.0),
+                                TextButton.icon(
+                                  onPressed: () {
+                                    // Navigate to the Full Memory Screen to view/edit the memory
+                                    navigateToViewFullMemory(memory);
+                                  },
+                                  icon: Icon(Icons.open_in_new),
+                                  label: Text('View Full Memory'),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -157,6 +198,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  //Date Formatting
 }
