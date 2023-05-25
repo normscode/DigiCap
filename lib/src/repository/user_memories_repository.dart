@@ -11,6 +11,7 @@ class MemoriesRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  //Add Memories Method
   addMemories(MemoryModel memory) {
     final userEmail = _auth.currentUser!.email;
     _db
@@ -79,6 +80,7 @@ class MemoriesRepository extends GetxController {
     });
   }
 
+  //Delete Method for Memories
   Future<void> deleteMemory(String memoryID) async {
     await _db
         .collection("Users")

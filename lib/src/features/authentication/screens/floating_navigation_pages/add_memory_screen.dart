@@ -23,7 +23,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Save Memory'),
+        title: Text('Add a Memory'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -125,34 +125,52 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                 ),
                 SizedBox(height: 16.0),
                 Text(
-                  'Photos',
+                  'Photo',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 8.0),
-                InkWell(
-                  onTap: () {
-                    openBottomSheet();
-                  },
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: myImage == null
-                        ? const Center(
-                            child: Icon(
-                              Icons.upload_file,
-                              size: 50,
+                Container(
+                  width: 500,
+                  padding: EdgeInsets.all(
+                      10.0), // Optional: Add padding to the container
+                  decoration: BoxDecoration(
+                    // Optional: Add decoration properties to the container
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      openBottomSheet();
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: myImage == null
+                          ? const Center(
+                              child: Icon(
+                                Icons.upload_file,
+                                size: 50,
+                              ),
+                            )
+                          : Image.file(
+                              myImage!,
+                              fit: BoxFit.cover,
                             ),
-                          )
-                        : Image.file(
-                            myImage!,
-                            fit: BoxFit.cover,
-                          ),
+                    ),
                   ),
                 ),
                 // Implement your photo selection/capture widget here

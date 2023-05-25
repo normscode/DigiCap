@@ -97,7 +97,7 @@ class ViewFullMemoryScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Image.network(
                     memory.photoURL ??
-                        'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/memories%2Fundraw_moments_0y20.png?alt=media&token=fd302635-248b-43bc-8bca-4348de001339',
+                        'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/digiapp%2Fundraw_moments_0y20.png?alt=media&token=110dfbf5-fe35-4d88-91b1-3b54096d8e78',
                     fit: BoxFit.cover,
                     width: double.infinity,
                     errorBuilder: (context, error, stackTrace) {

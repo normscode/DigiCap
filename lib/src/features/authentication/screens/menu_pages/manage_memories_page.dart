@@ -60,8 +60,6 @@ class MemoriesPage extends StatelessWidget {
                   itemCount: memories.length,
                   itemBuilder: (context, index) {
                     final MemoryModel memory = memories[index];
-                    String timeDuration =
-                        controller.formatTimeDuration(memory.date!);
                     print(memory.id);
                     return Card(
                       margin:
@@ -103,7 +101,7 @@ class MemoriesPage extends StatelessWidget {
                             SizedBox(height: 16.0),
                             Image.network(
                               memory.photoURL ??
-                                  'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/memories%2Fundraw_moments_0y20.png?alt=media&token=fd302635-248b-43bc-8bca-4348de001339',
+                                  'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/digiapp%2Fundraw_moments_0y20.png?alt=media&token=110dfbf5-fe35-4d88-91b1-3b54096d8e78',
                               errorBuilder: (context, error, stackTrace) {
                                 return Image.asset(
                                   'assets/images/error_image.png', // Replace with your error image asset path

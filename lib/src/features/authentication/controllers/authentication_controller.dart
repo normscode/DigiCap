@@ -15,7 +15,6 @@ class AuthController extends GetxController {
   RxBool acceptTerms = false.obs;
   static AuthController get instance => Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   final userRepo = Get.put(UserRepository());
 
   // Method to toggle the acceptance status
@@ -93,6 +92,13 @@ class AuthController extends GetxController {
       );
       // Login successful, you can now handle the logged-in user
       User? user = userCredential.user;
+      Get.snackbar(
+        'Login Success',
+        'Start adding your Memories!.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
     } on FirebaseAuthException catch (e) {
       // Handle specific FirebaseAuthException errors
       String errorMessage = '';

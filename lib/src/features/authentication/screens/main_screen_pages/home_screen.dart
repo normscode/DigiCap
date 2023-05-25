@@ -8,6 +8,7 @@ import 'package:time_capsule/src/features/authentication/screens/main_screen_pag
 import 'package:time_capsule/src/utils/widgets/appbar_widget.dart';
 
 import '../../models/memory_model.dart';
+import '../../models/user_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -70,8 +71,8 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   radius: 24.0,
-                                  backgroundImage: NetworkImage(
-                                      "https://th.bing.com/th/id/R.782adc2b6062ab00461359da5b02b753?rik=Y%2fJZM98TPsfXxA&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fProfile-PNG-File.png&ehk=nJ0Yls4aiMdSvREO5hB2GU7Hc3cL04UQeojwLhvL8Gk%3d&risl=&pid=ImgRaw&r=0"),
+                                  backgroundImage: AssetImage(
+                                      "assets/images/profile-empty.png"),
                                 ),
                                 SizedBox(width: 16.0),
                                 Expanded(
@@ -110,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                             SizedBox(height: 16.0),
                             Image.network(
                               memory.photoURL ??
-                                  'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/memories%2Fundraw_moments_0y20.png?alt=media&token=fd302635-248b-43bc-8bca-4348de001339',
+                                  'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/digiapp%2Fundraw_moments_0y20.png?alt=media&token=110dfbf5-fe35-4d88-91b1-3b54096d8e78',
                               errorBuilder: (context, error, stackTrace) {
                                 return Image.asset(
                                   'assets/images/error_image.png', // Replace with your error image asset path

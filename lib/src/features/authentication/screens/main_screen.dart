@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen>
         iconColor: Colors.blue,
 
         // Floating Action button Icon
-        iconData: Icons.ac_unit,
+        iconData: Icons.add,
         backgroundColor: Colors.white,
         // Menu items
         items: <Widget>[
@@ -114,12 +114,10 @@ class _MainScreenState extends State<MainScreen>
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        notchMargin: 5.0,
-        shape: CircularNotchedRectangle(),
         child: Container(
           height: 60,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,12 +171,7 @@ class _MainScreenState extends State<MainScreen>
                         ),
                       ],
                     ),
-                  )
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                  ),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -195,7 +188,7 @@ class _MainScreenState extends State<MainScreen>
                           color: currentTab == 2 ? Colors.orange : Colors.grey,
                         ),
                         Text(
-                          "Notifications",
+                          "Reminders",
                           style: TextStyle(
                               color: currentTab == 2
                                   ? Colors.orange
@@ -230,7 +223,7 @@ class _MainScreenState extends State<MainScreen>
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
