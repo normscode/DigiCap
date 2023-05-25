@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/menu_screen.dart';
-import '../screens/main_screen_pages/notifications_screen.dart';
+import '../screens/main_screen_pages/reminders_screen.dart';
 import '../screens/main_screen_pages/tools_screen.dart';
 
 class MainScreenController extends GetxController {
@@ -23,7 +23,7 @@ class MainScreenController extends GetxController {
     ListItem(
       label: 'Notifications',
       icon: Icons.notifications,
-      page: NotificationScreen(),
+      page: ReminderScreen(),
     ),
     ListItem(
       label: 'Menu',

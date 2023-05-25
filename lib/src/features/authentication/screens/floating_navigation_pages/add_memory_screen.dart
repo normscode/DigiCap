@@ -110,12 +110,12 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                         controller: memoryController.description,
                         maxLines: 4,
                         decoration: InputDecoration(
-                          hintText: 'Enter the description',
+                          hintText: 'Click here to write about this memory...',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'Please enter a description';
+                            return 'Please Click here to write about this memory';
                           }
                           return null; // Return null if the input is valid
                         },

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/menu_screen.dart';
-import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/notifications_screen.dart';
+import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/reminders_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/tools_screen.dart';
 import '../../../utils/widgets/appbar_widget.dart';
 import '../controllers/main_screen_controller.dart';
@@ -22,7 +23,7 @@ class _MainScreenState extends State<MainScreen>
   final List<Widget> screens = [
     HomeScreen(),
     ToolScreen(),
-    NotificationScreen(),
+    ReminderScreen(),
     MenuScreen(),
   ];
 
@@ -99,7 +100,7 @@ class _MainScreenState extends State<MainScreen>
             title: "Add Memory",
             iconColor: Colors.white,
             bubbleColor: Colors.orange,
-            icon: Icons.event,
+            icon: FontAwesomeIcons.heartCirclePlus,
             style: const TextStyle(fontSize: 14, color: Colors.white),
             onPressed: () {
               Navigator.push(
@@ -176,7 +177,7 @@ class _MainScreenState extends State<MainScreen>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = NotificationScreen();
+                        currentScreen = ReminderScreen();
                         currentTab = 2;
                       });
                     },
@@ -184,11 +185,11 @@ class _MainScreenState extends State<MainScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.notifications,
+                          Icons.assistant,
                           color: currentTab == 2 ? Colors.orange : Colors.grey,
                         ),
                         Text(
-                          "Reminders",
+                          "Digi Assist",
                           style: TextStyle(
                               color: currentTab == 2
                                   ? Colors.orange

@@ -5,7 +5,7 @@ import 'package:time_capsule/src/features/authentication/screens/main_screen_pag
 
 import '../screens/menu_pages/albums_page.dart';
 import '../screens/menu_pages/manage_memories_page.dart';
-import '../screens/menu_pages/newsfeed_page.dart';
+
 import 'authentication_controller.dart';
 
 class MenusController extends GetxController {
@@ -20,14 +20,14 @@ class MenusController extends GetxController {
       titleColor: Colors.orange,
       descriptionColor: Colors.black.withOpacity(0.3),
       iconBorderRadius: BorderRadius.circular(10),
-      page: NewsFeedPage(),
+      page: MainScreen(),
       onTap: () {
         Get.offAll(() => MainScreen());
         debugPrint("NewsPageTapped!");
       },
     ),
     ListItem(
-      icon: Icons.memory,
+      icon: Icons.notes,
       title: 'Manage Memories',
       description: 'View all of your Memories on DigiCap',
       iconBackgroundColor: Colors.blue,
