@@ -27,7 +27,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
     memoryController.title.text = widget.memory.title;
     memoryController.description.text = widget.memory.description;
     memoryController.date = widget.memory.date;
-    memoryController.imageURL = widget.memory.photoURL!;
+    memoryController.imageURL = widget.memory.photoURL;
     memoryController.memoryID = widget.memory.id!;
   }
 
@@ -169,6 +169,10 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                       // If the form is valid, update the memory
 
                       // Handle save memory logic
+                      if (memoryController.imageURL != null) {
+                        memoryController
+                            .deletePhotoMemory(memoryController.imageURL!);
+                      }
                       await updateFile(memoryController.memoryID);
 
                       // Call the update memory function with widget.memory
@@ -268,7 +272,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
               title: memoryController.title.text.trim(),
               description: memoryController.description.text.trim(),
               date: memoryController.getCurrentFormattedDate(),
-              photoURL: memoryController.imageURL.trim(),
+              photoURL: memoryController.imageURL!.trim(),
             );
             memoryController.editMemories(memory, memoryController.memoryID);
             break;
@@ -288,7 +292,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
       final memory = MemoryModel(
         title: memoryController.title.text.trim(),
         description: memoryController.description.text.trim(),
-        photoURL: memoryController.imageURL.trim(),
+        photoURL: memoryController.imageURL!.trim(),
         date: memoryController.getCurrentFormattedDate(),
       );
       memoryController.editMemories(memory, memoryController.memoryID);

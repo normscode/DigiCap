@@ -9,7 +9,13 @@ import '../../controllers/home_screen_controller.dart';
 import '../../models/memory_model.dart';
 import '../main_screen_pages/view_full_memory_screen.dart';
 
-class MemoriesPage extends StatelessWidget {
+class MemoriesPage extends StatefulWidget {
+  @override
+  State<MemoriesPage> createState() => _MemoriesPageState();
+}
+
+class _MemoriesPageState extends State<MemoriesPage> {
+  String? test;
   void navigateToViewFullMemory(MemoryModel memory) {
     Get.to(() => ViewFullMemoryScreen(memory: memory));
   }
@@ -60,7 +66,6 @@ class MemoriesPage extends StatelessWidget {
                   itemCount: memories.length,
                   itemBuilder: (context, index) {
                     final MemoryModel memory = memories[index];
-                    print(memory.id);
                     return Card(
                       margin:
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -81,7 +86,7 @@ class MemoriesPage extends StatelessWidget {
                                         memory.title,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16.0,
+                                          fontSize: 20.0,
                                         ),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -153,6 +158,11 @@ class MemoriesPage extends StatelessWidget {
                                               // Delete the memory from the list or database
                                               memoryController
                                                   .deleteMemories(memory.id!);
+                                              if (memory.photoURL != null) {
+                                                memoryController
+                                                    .deletePhotoMemory(
+                                                        memory.photoURL!);
+                                              }
                                               Navigator.pop(
                                                   context); // Close the dialog
                                             },
@@ -181,6 +191,24 @@ class MemoriesPage extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            Row(
+                              children: [
+                                // ElevatedButton(
+                                //   onPressed: () {
+                                //     // Handle recording voice tag logic here
+                                //     // You can navigate to a new screen to record the voice tag or show a dialog
+                                //     // for the recording functionality.
+                                //     // recordVoiceTag(memory);
+                                //   },
+                                //   style: ElevatedButton.styleFrom(
+                                //     primary: Colors.blue,
+                                //     onPrimary: Colors.white,
+                                //     minimumSize: Size(150, 36),
+                                //   ),
+                                //   child: Text('Record Voice Tag'),
+                                // ),
+                              ],
+                            )
                           ],
                         ),
                       ),

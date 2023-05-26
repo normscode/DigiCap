@@ -48,6 +48,14 @@ class AuthController extends GetxController {
       );
       // Signup successful, you can now handle the user creation
       User? firebaseUser = userCredential.user;
+      Get.snackbar(
+        'Sign up Success',
+        'Start adding your Memories!.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+      Get.to(() => MainScreen());
       // Save additional user details if needed
     } on FirebaseAuthException catch (e) {
       // Handle specific FirebaseAuthException errors

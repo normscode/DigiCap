@@ -31,7 +31,7 @@ class ToolScreen extends StatelessWidget {
           ),
           ToolCard(
             toolName: 'Memories',
-            iconData: FontAwesomeIcons.heartCirclePlus,
+            iconData: FontAwesomeIcons.heartCircleCheck,
             iconBackgroundColor: const Color.fromARGB(255, 17, 90, 150),
             iconColor: Colors.white,
             titleColor: Colors.orange,

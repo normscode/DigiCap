@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:time_capsule/src/features/authentication/models/user_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../controllers/authentication_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final AuthController authController = Get.put(AuthController());
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri(scheme: "https", host: url);
+    if (!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw "Can not launch URL";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,59 +102,190 @@ class LoginScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        return Center(
+          child: SingleChildScrollView(
+            child: AlertDialog(
+              title: Text('Signup'),
+              content: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: authController.fullName,
+                      decoration: InputDecoration(
+                        labelText: 'Full Name',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Full Name is Required';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: authController.email,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Email is required.';
+                        }
+
+                        final emailRegex = RegExp(
+                            r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+                        if (!emailRegex.hasMatch(value)) {
+                          return 'Invalid email format.';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: authController.password,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Password is required.';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long.';
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                    ),
+                    TextFormField(
+                      controller: authController.confirmPassword,
+                      decoration: InputDecoration(
+                        labelText: 'Confirm Password',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Confirm Password is required.';
+                        }
+                        if (value != authController.password.text) {
+                          return 'Passwords do not match.';
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                    ),
+                    Row(
+                      children: [
+                        Obx(() => Checkbox(
+                              value: authController.acceptTerms.value,
+                              onChanged: (value) {
+                                authController.toggleAcceptTerms();
+                              },
+                            )),
+                        Flexible(
+                          child: GestureDetector(
+                            onTap: () {
+                              _launchURL("www.google.com");
+                            },
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: 'Accept ',
+                                style: TextStyle(color: Colors.black),
+                                children: [
+                                  TextSpan(
+                                    text: 'Terms and Conditions',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                ElevatedButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                ElevatedButton(
+                  child: Text('Signup'),
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      await authController.signup();
+                      final user = UserModel(
+                        email: authController.email.text.trim(),
+                        password: authController.password.text.trim(),
+                        fullName: authController.fullName.text.trim(),
+                      );
+                      authController.createUser(user);
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+//Login Dialog Form
+  void showLoginDialog(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Signup'),
+          title: Text('Login'),
           content: Form(
             key: formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
-                  controller: authController.fullName,
-                  decoration: InputDecoration(
-                    labelText: 'Full Name',
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Full name is required.';
-                    }
-                    return null;
-                  },
-                ),
-                TextField(
                   controller: authController.email,
                   decoration: InputDecoration(
                     labelText: 'Email',
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Email is required.';
+                    }
+
+                    final emailRegex = RegExp(
+                        r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Invalid email format.';
+                    }
+                    return null;
+                  },
                 ),
-                TextField(
+                TextFormField(
                   controller: authController.password,
                   decoration: InputDecoration(
                     labelText: 'Password',
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Password is required.';
+                    }
+                    if (value.length < 8) {
+                      return 'Password must be at least 8 characters long.';
+                    }
+                    return null;
+                  },
                   obscureText: true,
-                ),
-                TextField(
-                  controller: authController.confirmPassword,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                  ),
-                  obscureText: true,
-                ),
-                Row(
-                  children: [
-                    Obx(() => Checkbox(
-                          value: authController.acceptTerms.value,
-                          onChanged: (value) {
-                            authController.toggleAcceptTerms();
-                          },
-                        )),
-                    Flexible(
-                        child: Text(
-                      'Accept Terms and Conditions',
-                      overflow: TextOverflow.ellipsis,
-                    )),
-                  ],
                 ),
               ],
             ),
@@ -156,63 +298,11 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              child: Text('Signup'),
-              onPressed: () async {
-                if (formKey.currentState!.validate()) {
-                  await authController.signup();
-                  final user = UserModel(
-                    email: authController.email.text.trim(),
-                    password: authController.password.text.trim(),
-                    fullName: authController.fullName.text.trim(),
-                  );
-                  authController.createUser(user);
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-//Login Dialog Form
-  void showLoginDialog(BuildContext context) {
-    final AuthController authController = Get.find<AuthController>();
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Login'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: authController.email,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                ),
-              ),
-              TextField(
-                controller: authController.password,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                ),
-                obscureText: true,
-              ),
-            ],
-          ),
-          actions: [
-            ElevatedButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            ElevatedButton(
               child: Text('Login'),
               onPressed: () async {
-                await authController.login();
+                if (formKey.currentState!.validate()) {
+                  await authController.login();
+                }
               },
             ),
           ],

@@ -14,9 +14,8 @@ class MemoryController extends GetxController {
   final description = TextEditingController();
   final photoURL = TextEditingController();
   Timestamp? date;
-  
 
-  String imageURL = "";
+  String? imageURL;
   final memoryRepo = Get.put(MemoriesRepository());
 
   String memoryID = "";
@@ -48,5 +47,10 @@ class MemoryController extends GetxController {
     DateTime dateTime = timestamp.toDate();
     String formattedDate = DateFormat('d MMM y').format(dateTime);
     return formattedDate;
+  }
+
+  //Delete Memory Image from Firebase Storage memories
+  Future<void> deletePhotoMemory(String photoURL) async {
+    await memoryRepo.deleteImage(photoURL);
   }
 }

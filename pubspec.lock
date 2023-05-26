@@ -41,6 +41,62 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  audioplayers:
+    dependency: transitive
+    description:
+      name: audioplayers
+      sha256: bb506873ab4fb663db9b47243754ef669adf684dbe6ba8b57c26e27b834065c4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  audioplayers_android:
+    dependency: transitive
+    description:
+      name: audioplayers_android
+      sha256: "53969a1c5d94ebdaef72e334f1c0ea2f3946ab2baa8d398a9584ac27baf4f037"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3"
+  audioplayers_darwin:
+    dependency: transitive
+    description:
+      name: audioplayers_darwin
+      sha256: dcd5a4ceef5aa3d04e8ae49441f13a3d9f93fe6e9e88fe121ff6b6f391b2a40b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
+  audioplayers_linux:
+    dependency: transitive
+    description:
+      name: audioplayers_linux
+      sha256: ea1cb9a5c9389b38f293ee1375b22b02fb1d1f7a2e1517fcb674297dd074dc7b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
+  audioplayers_platform_interface:
+    dependency: transitive
+    description:
+      name: audioplayers_platform_interface
+      sha256: "589c3106d0c656540e81ac2c7a78a9414a4a6534ae7b77f06ddb5d6aa5dc653c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  audioplayers_web:
+    dependency: transitive
+    description:
+      name: audioplayers_web
+      sha256: "13fb044a443276223774f8ed1f8d2b82f443cf8980edd0e172e55967c1556a49"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  audioplayers_windows:
+    dependency: transitive
+    description:
+      name: audioplayers_windows
+      sha256: "87964ddece7275b97277935df67af60536155914c81c633f708914b99433129b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   awesome_notifications:
     dependency: "direct main"
     description:
@@ -153,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  easy_audio:
+    dependency: "direct main"
+    description:
+      name: easy_audio
+      sha256: "0c70bc43903cb4bbfa5c19bc410e7a520b3fe43b4b520e98a7099818d4c87f01"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -424,6 +488,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.1"
   matcher:
     dependency: transitive
     description:
@@ -536,6 +608,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.6"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      sha256: "67fc27ed9639506c856c840ccce7594d0bdcd91bc8d53d6e52359449a1d50602"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.11.1"
   permission_handler:
     dependency: "direct main"
     description:
@@ -616,6 +696,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  record:
+    dependency: transitive
+    description:
+      name: record
+      sha256: f703397f5a60d9b2b655b3acc94ba079b2d9a67dc0725bdb90ef2fee2441ebf7
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.4"
+  record_linux:
+    dependency: transitive
+    description:
+      name: record_linux
+      sha256: "348db92c4ec1b67b1b85d791381c8c99d7c6908de141e7c9edc20dad399b15ce"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
+  record_macos:
+    dependency: transitive
+    description:
+      name: record_macos
+      sha256: d1d0199d1395f05e218207e8cacd03eb9dc9e256ddfe2cfcbbb90e8edea06057
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
+  record_platform_interface:
+    dependency: transitive
+    description:
+      name: record_platform_interface
+      sha256: "7a2d4ce7ac3752505157e416e4e0d666a54b1d5d8601701b7e7e5e30bec181b4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
+  record_web:
+    dependency: transitive
+    description:
+      name: record_web
+      sha256: "219ffb4ca59b4338117857db56d3ffadbde3169bcaf1136f5f4d4656f4a2372d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
+  record_windows:
+    dependency: transitive
+    description:
+      name: record_windows
+      sha256: "42d545155a26b20d74f5107648dbb3382dbbc84dc3f1adc767040359e57a1345"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -629,6 +757,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  speech_to_text:
+    dependency: transitive
+    description:
+      name: speech_to_text
+      sha256: ff8fbd31d039bdbac6c7ec9f0516d37df2cbea62c45198326d3b64034e6fb920
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.1"
+  speech_to_text_macos:
+    dependency: transitive
+    description:
+      name: speech_to_text_macos
+      sha256: "6b5575e5a8346be1779838b0a482c259474965b5943668830b479147a75b5bfc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
+  speech_to_text_platform_interface:
+    dependency: transitive
+    description:
+      name: speech_to_text_platform_interface
+      sha256: "13d90215a7554b9a8c1ce47c0a1739af8eacd2cf196ca66351e54dfd2172746d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   stack_trace:
     dependency: transitive
     description:
@@ -693,6 +845,78 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      sha256: eb1e00ab44303d50dd487aab67ebc575456c146c6af44422f9c13889984c00f3
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.11"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      sha256: eed4e6a1164aa9794409325c3b707ff424d4d1c2a785e7db67f8bbda00e36e51
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.35"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      sha256: "9af7ea73259886b92199f9e42c116072f05ff9bea2dcb339ab935dfc957392c2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.4"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      sha256: "207f4ddda99b95b4d4868320a352d374b0b7e05eefad95a4a26f57da413443f5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      sha256: "91ee3e75ea9dadf38036200c5d3743518f4a5eb77a8d13fda1ee5764373f185e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      sha256: "6c9ca697a5ae218ce56cece69d46128169a58aa8653c1b01d26fcd4aad8c4370"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      sha256: "6bb1e5d7fe53daf02a8fee85352432a40b1f868a81880e99ec7440113d5cfcab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      sha256: "254708f17f7c20a9c8c471f67d86d76d4a3f9c1591aad1e15292008aceb82771"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.6"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:

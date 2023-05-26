@@ -149,45 +149,63 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                       ),
                     ],
                   ),
-                  child: InkWell(
-                    onTap: () {
-                      openBottomSheet();
-                    },
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: myImage == null
-                          ? const Center(
-                              child: Icon(
-                                Icons.upload_file,
-                                size: 50,
-                              ),
-                            )
-                          : Image.file(
-                              myImage!,
-                              fit: BoxFit.cover,
-                            ),
-                    ),
+                  child: Column(
+                    children: [
+                      Text("Click Here to Add Photo"),
+                      SizedBox(height: 5.0),
+                      InkWell(
+                        onTap: () {
+                          openBottomSheet();
+                        },
+                        child: Container(
+                          width: 300,
+                          height: 200,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: myImage == null
+                              ? const Center(
+                                  child: Icon(
+                                    Icons.upload_file,
+                                    size: 50,
+                                  ),
+                                )
+                              : Image.file(
+                                  myImage!,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 // Implement your photo selection/capture widget here
-                SizedBox(height: 16.0),
-                SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      // If the form is valid, save the memory
-                      await uploadFile();
-                      Get.to(() => MainScreen());
-                    }
-                    // If the form is valid, save the memory
 
-                    // Handle save memory logic
-                  },
-                  child: Text('Save Memory'),
+                SizedBox(height: 16.0),
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                          300, 50), // Set the width and height of the button
+                      backgroundColor:
+                          Colors.orange, // Set the background color to orange
+                    ),
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        // If the form is valid, save the memory
+                        await uploadFile();
+                        Get.to(() => MainScreen());
+                      }
+                      // If the form is valid, save the memory
+
+                      // Handle save memory logic
+                    },
+                    child: Text(
+                      'Save Memory',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -279,7 +297,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
               title: memoryController.title.text.trim(),
               description: memoryController.description.text.trim(),
               date: memoryController.getCurrentFormattedDate(),
-              photoURL: memoryController.imageURL.trim(),
+              photoURL: memoryController.imageURL!.trim(),
             );
             memoryController.createMemories(memory);
             break;

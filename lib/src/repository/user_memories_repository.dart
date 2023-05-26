@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -89,6 +90,25 @@ class MemoriesRepository extends GetxController {
         .doc(memoryID)
         .delete();
 
-    Get.snackbar("Memory Deleted!", 'You have successfully deleted a memory');
+    Get.snackbar(
+      "Memory Deleted!",
+      'You have successfully deleted a memory',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.green.withOpacity(0.1),
+      colorText: Colors.green,
+    );
+  }
+
+  //Delete Image from Firebase Storage memories
+  Future<void> deleteImage(String photoURL) async {
+    Reference ref = FirebaseStorage.instance.refFromURL(photoURL);
+    await ref.delete();
+    Get.snackbar(
+      "Deleted!",
+      "Memory Photo Deleted!",
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.green.withOpacity(0.1),
+      colorText: Colors.green,
+    );
   }
 }
