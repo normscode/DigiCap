@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_undraw/ms_undraw.dart';
 import 'package:time_capsule/src/features/authentication/controllers/add_memory_screen_controller.dart';
 import 'package:time_capsule/src/features/authentication/screens/menu_pages/edit_memories_screen.dart';
-
 import '../../controllers/home_screen_controller.dart';
 import '../../models/memory_model.dart';
 import '../main_screen_pages/view_full_memory_screen.dart';
+import 'dart:async';
 
 class MemoriesPage extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class MemoriesPage extends StatefulWidget {
 }
 
 class _MemoriesPageState extends State<MemoriesPage> {
-  String? test;
   void navigateToViewFullMemory(MemoryModel memory) {
     Get.to(() => ViewFullMemoryScreen(memory: memory));
   }
@@ -28,6 +26,7 @@ class _MemoriesPageState extends State<MemoriesPage> {
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
     final memoryController = Get.put(MemoryController());
+
     return Scaffold(
       appBar: AppBar(title: Text("Manage Memories")),
       body: Container(
@@ -191,24 +190,6 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                 ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                // ElevatedButton(
-                                //   onPressed: () {
-                                //     // Handle recording voice tag logic here
-                                //     // You can navigate to a new screen to record the voice tag or show a dialog
-                                //     // for the recording functionality.
-                                //     // recordVoiceTag(memory);
-                                //   },
-                                //   style: ElevatedButton.styleFrom(
-                                //     primary: Colors.blue,
-                                //     onPrimary: Colors.white,
-                                //     minimumSize: Size(150, 36),
-                                //   ),
-                                //   child: Text('Record Voice Tag'),
-                                // ),
-                              ],
-                            )
                           ],
                         ),
                       ),

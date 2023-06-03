@@ -53,7 +53,6 @@ class MenusController extends GetxController {
       page: AlbumPage(),
       onTap: () {
         Get.to(() => AlbumPage());
-        debugPrint("AlbumPageTapped!");
       },
     ),
     ListItem(
@@ -70,6 +69,8 @@ class MenusController extends GetxController {
         AuthController.instance.logout();
         AuthController.instance.email.text = "";
         AuthController.instance.password.text = "";
+        AuthController.instance.fullName.text = "";
+        AuthController.instance.confirmPassword.text = "";
       },
     ),
   ];

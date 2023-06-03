@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:time_capsule/src/features/authentication/models/memory_model.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen.dart';
-
 import '../../controllers/add_memory_screen_controller.dart';
 
 class SaveMemoryScreen extends StatefulWidget {
@@ -15,6 +15,7 @@ class SaveMemoryScreen extends StatefulWidget {
 
 class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   File? myImage;
+  File? myAudio;
 
   final MemoryController memoryController = Get.put(MemoryController());
   final formKey = GlobalKey<FormState>();
@@ -151,7 +152,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text("Click Here to Add Photo"),
+                      Text("Click Upload Icon Below to Add Photo"),
                       SizedBox(height: 5.0),
                       InkWell(
                         onTap: () {
@@ -276,6 +277,19 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
     }
   }
 
+  getAudio() async {
+  final FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.audio,
+    allowMultiple: false,
+  );
+
+  if (result != null && result.files.isNotEmpty) {
+    myAudio = File(result.files.single.path!);
+    setState(() {});
+    Get.back();
+  }
+}
+
   Future<void> uploadFile() async {
     if (myImage != null) {
       final file = myImage;
@@ -300,6 +314,9 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
               photoURL: memoryController.imageURL!.trim(),
             );
             memoryController.createMemories(memory);
+            memoryController.title.text = "";
+            memoryController.description.text = "";
+            memoryController.imageURL = "";
             break;
           case TaskState.paused:
             print("File upload was paused");
@@ -320,6 +337,9 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
         date: memoryController.getCurrentFormattedDate(),
       );
       memoryController.createMemories(memory);
+      memoryController.title.text = "";
+      memoryController.description.text = "";
+      memoryController.imageURL = "";
     }
   }
 }

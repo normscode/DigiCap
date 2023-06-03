@@ -220,14 +220,25 @@ class LoginScreen extends StatelessWidget {
                   child: Text('Signup'),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      await authController.signup();
-                      final user = UserModel(
-                        email: authController.email.text.trim(),
-                        password: authController.password.text.trim(),
-                        fullName: authController.fullName.text.trim(),
-                      );
-                      authController.createUser(user);
+                      if (authController.isTermsAccepted()) {
+                        await authController.signup();
+                        final user = UserModel(
+                          email: authController.email.text.trim(),
+                          password: authController.password.text.trim(),
+                          fullName: authController.fullName.text.trim(),
+                        );
+                        authController.createUser(user);
+                      } else {
+                        Get.snackbar(
+                          'Sign Up Failed',
+                          'You must accept the Terms and Conditions.',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
                     }
+                    
                   },
                 ),
               ],

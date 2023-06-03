@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/menu_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/reminders_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/tools_screen.dart';
 import '../../../utils/widgets/appbar_widget.dart';
-import '../controllers/main_screen_controller.dart';
 import 'package:floating_action_bubble_custom/floating_action_bubble_custom.dart';
 import 'floating_navigation_pages/add_memory_screen.dart';
 
@@ -49,7 +47,6 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
-    final MainScreenController controller = Get.put(MainScreenController());
     return Scaffold(
       appBar: mainAppBar(),
       body: PageStorage(

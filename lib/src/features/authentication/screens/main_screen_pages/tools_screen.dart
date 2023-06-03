@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen.dart';
-import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
-
+import '../menu_pages/albums_page.dart';
 import '../menu_pages/manage_memories_page.dart';
 
 class ToolScreen extends StatelessWidget {
@@ -48,6 +47,7 @@ class ToolScreen extends StatelessWidget {
             titleColor: Colors.orange,
             onTap: () {
               // Handle tool selection for Photos
+              Get.to(() => AlbumPage());
             },
           ),
           ToolCard(

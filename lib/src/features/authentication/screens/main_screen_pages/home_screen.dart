@@ -1,14 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ms_undraw/ms_undraw.dart';
 import 'package:time_capsule/src/features/authentication/controllers/home_screen_controller.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/view_full_memory_screen.dart';
-import 'package:time_capsule/src/utils/widgets/appbar_widget.dart';
-
 import '../../models/memory_model.dart';
-import '../../models/user_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

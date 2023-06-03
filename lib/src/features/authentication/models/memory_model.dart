@@ -6,6 +6,7 @@ class MemoryModel {
   final String description;
   final Timestamp? date;
   final String? photoURL;
+  final String? voiceTagURL;
 
   const MemoryModel({
     this.id,
@@ -13,6 +14,7 @@ class MemoryModel {
     required this.description,
     this.date,
     this.photoURL,
+    this.voiceTagURL,
   });
 
   toJson() {
@@ -33,6 +35,7 @@ class MemoryModel {
       description: data["Description"],
       date: data["Date"],
       photoURL: data["PhotoURL"],
+      voiceTagURL: data["VoiceTagURL"],
     );
   }
 }

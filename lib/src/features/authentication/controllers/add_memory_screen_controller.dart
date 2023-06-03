@@ -14,7 +14,7 @@ class MemoryController extends GetxController {
   final description = TextEditingController();
   final photoURL = TextEditingController();
   Timestamp? date;
-
+  String? audioURL;
   String? imageURL;
   final memoryRepo = Get.put(MemoriesRepository());
 

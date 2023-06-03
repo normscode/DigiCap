@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,12 +50,12 @@ class MemoriesRepository extends GetxController {
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();
               return MemoryModel(
-                id: doc.id,
-                title: data['Title'],
-                description: data['Description'],
-                date: data['Date'],
-                photoURL: data['PhotoURL'],
-              );
+                  id: doc.id,
+                  title: data['Title'],
+                  description: data['Description'],
+                  date: data['Date'],
+                  photoURL: data['PhotoURL'],
+                  voiceTagURL: data['voiceTagURL']);
             }).toList());
   }
 

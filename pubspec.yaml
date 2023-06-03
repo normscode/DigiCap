@@ -50,11 +50,14 @@ dependencies:
   permission_handler: ^10.2.0
   onesignal_flutter: ^3.5.1
   font_awesome_flutter: ^10.4.0
-  easy_audio: ^0.0.1
   url_launcher: ^6.1.11
   flutter_launcher_icons: ^0.13.1
   cupertino_icons: ^1.0.2
+  path_provider: ^2.0.15
+  file_picker: ^4.1.0
   
+  
+
 flutter_icons:
   android: true
   ios: true

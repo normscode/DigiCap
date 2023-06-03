@@ -13,6 +13,7 @@ void main() async {
   Get.put(AuthController());
   await Permission.notification.request();
   await Permission.microphone.request();
+  await Permission.location.request();
   NotificationService.initializeNotification();
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   OneSignal.shared.setAppId('96f3b655-5501-44d0-91cd-30731c7e3191');

@@ -29,17 +29,6 @@ class AuthController extends GetxController {
 
   //Signup Method
   Future<void> signup() async {
-    if (!isTermsAccepted()) {
-      // Display an error message if the terms and conditions are not accepted
-      Get.snackbar(
-        'Sign Up Failed',
-        'You must accept the Terms and Conditions.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-      return;
-    }
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -140,18 +129,48 @@ class AuthController extends GetxController {
 
   // Logout the current user
   void logout() async {
-    try {
-      await _auth.signOut();
-      // Perform any additional cleanup or tasks after logout
+    bool? confirmLogout = await _showLogoutConfirmationDialog();
+    if (confirmLogout!) {
+      try {
+        await _auth.signOut();
+        // Perform any additional cleanup or tasks after logout
 
-      // Navigate to the login screen
-      Get.offAll(() => LoginScreen());
-      Get.snackbar('Logged Out', 'You have been successfully logged out.',
-          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green);
-    } catch (e) {
-      print('Error logging out: $e');
-      // Show an error message or handle the error as needed
+        // Navigate to the login screen
+        Get.offAll(() => LoginScreen());
+        Get.snackbar(
+          'Logged Out',
+          'You have been successfully logged out.',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+        );
+      } catch (e) {
+        print('Error logging out: $e');
+        // Show an error message or handle the error as needed
+      }
     }
+  }
+
+  Future<bool?> _showLogoutConfirmationDialog() async {
+    return await Get.dialog<bool>(
+      AlertDialog(
+        title: Text('Logout Confirmation'),
+        content: Text('Are you sure you want to log out?'),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Logout'),
+            onPressed: () {
+              Get.back(result: true);
+            },
+          ),
+          TextButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Get.back(result: false);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   // Check authentication status and redirect accordingly
