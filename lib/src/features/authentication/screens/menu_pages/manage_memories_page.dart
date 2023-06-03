@@ -133,7 +133,6 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                   color: Colors.orange,
                                   icon: Icon(Icons.edit),
                                   onPressed: () {
-                                    // Handle edit memory logic here
                                     // Navigate to the Edit Memory Screen
                                     navigateToUpdateScreenMemory(memory);
                                   },
@@ -142,7 +141,6 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                   color: Colors.red,
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
-                                    // Handle delete memory logic here
                                     // Show a confirmation dialog before deleting the memory
                                     showDialog(
                                       context: context,
@@ -153,7 +151,6 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                         actions: [
                                           TextButton(
                                             onPressed: () {
-                                              // Perform the delete operation
                                               // Delete the memory from the list or database
                                               memoryController
                                                   .deleteMemories(memory.id!);

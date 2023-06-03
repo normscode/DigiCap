@@ -278,17 +278,17 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   }
 
   getAudio() async {
-  final FilePickerResult? result = await FilePicker.platform.pickFiles(
-    type: FileType.audio,
-    allowMultiple: false,
-  );
+    final FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.audio,
+      allowMultiple: false,
+    );
 
-  if (result != null && result.files.isNotEmpty) {
-    myAudio = File(result.files.single.path!);
-    setState(() {});
-    Get.back();
+    if (result != null && result.files.isNotEmpty) {
+      myAudio = File(result.files.single.path!);
+      setState(() {});
+      Get.back();
+    }
   }
-}
 
   Future<void> uploadFile() async {
     if (myImage != null) {

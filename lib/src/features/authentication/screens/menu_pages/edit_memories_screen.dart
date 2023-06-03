@@ -138,49 +138,85 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                   ),
                 ),
                 SizedBox(height: 8.0),
-                InkWell(
-                  onTap: () {
-                    openBottomSheet();
-                  },
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: myImage == null
-                        ? const Center(
-                            child: Icon(
-                              Icons.upload_file,
-                              size: 50,
-                            ),
-                          )
-                        : Image.file(
-                            myImage!,
-                            fit: BoxFit.cover,
-                          ),
+                Container(
+                  width: 500,
+                  padding: EdgeInsets.all(
+                      10.0), // Optional: Add padding to the container
+                  decoration: BoxDecoration(
+                    // Optional: Add decoration properties to the container
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Text("Click Upload Icon Below to Replace Photo"),
+                      SizedBox(height: 5.0),
+                      InkWell(
+                        onTap: () {
+                          openBottomSheet();
+                        },
+                        child: Container(
+                          width: 300,
+                          height: 200,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: myImage == null
+                              ? const Center(
+                                  child: Icon(
+                                    Icons.upload_file,
+                                    size: 50,
+                                  ),
+                                )
+                              : Image.file(
+                                  myImage!,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      // If the form is valid, update the memory
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                          300, 50), // Set the width and height of the button
+                      backgroundColor:
+                          Colors.orange, // Set the background color to orange
+                    ),
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        // If the form is valid, update the memory
 
-                      // Handle save memory logic
-                      if (memoryController.imageURL != null) {
-                        memoryController
-                            .deletePhotoMemory(memoryController.imageURL!);
+                        // Handle save memory logic
+                        if (memoryController.imageURL != null) {
+                          memoryController
+                              .deletePhotoMemory(memoryController.imageURL!);
+                        }
+                        await updateFile(memoryController.memoryID);
+
+                        // Call the update memory function with widget.memory
+
+                        Navigator.pop(
+                            context); // Go back to the previous screen
                       }
-                      await updateFile(memoryController.memoryID);
-
-                      // Call the update memory function with widget.memory
-
-                      Navigator.pop(context); // Go back to the previous screen
-                    }
-                  },
-                  child: Text('Update Memory'),
+                    },
+                    child: Text(
+                      'Update Memory',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ],
             ),
