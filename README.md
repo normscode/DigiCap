@@ -1,6 +1,6 @@
-# time_capsule
+# DigiCap
 
-A new Flutter project.
+A digital memory time capsule app for capturing memories.
 
 ## Getting Started
 
