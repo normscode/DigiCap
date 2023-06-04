@@ -23,6 +23,7 @@ class MemoryModel {
       "Description": description,
       "Date": date,
       "PhotoURL": photoURL,
+      "voiceTagURL": voiceTagURL,
     };
   }
 

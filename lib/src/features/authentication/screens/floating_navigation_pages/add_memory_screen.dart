@@ -180,8 +180,70 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                     ],
                   ),
                 ),
-                // Implement your photo selection/capture widget here
-
+                SizedBox(height: 16.0),
+                Text(
+                  'Voice Tag Story',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Container(
+                  width: 500,
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Text("Click Upload Icon Below to Add Audio"),
+                      SizedBox(height: 5.0),
+                      InkWell(
+                        onTap: () {
+                          getAudio();
+                        },
+                        child: Container(
+                          width: 300,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: myAudio == null
+                              ? Center(
+                                  child: Icon(
+                                    Icons.upload_file,
+                                    size: 50,
+                                  ),
+                                )
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.music_note,
+                                      size: 50,
+                                    ),
+                                    Text(
+                                      'Audio Selected',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 16.0),
                 Align(
                   alignment: Alignment.center,
@@ -283,7 +345,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
       allowMultiple: false,
     );
 
-    if (result != null && result.files.isNotEmpty) {
+    if (result != null) {
       myAudio = File(result.files.single.path!);
       setState(() {});
       Get.back();
@@ -312,11 +374,13 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
               description: memoryController.description.text.trim(),
               date: memoryController.getCurrentFormattedDate(),
               photoURL: memoryController.imageURL!.trim(),
+              voiceTagURL: memoryController.audioURL!.trim(),
             );
             memoryController.createMemories(memory);
             memoryController.title.text = "";
             memoryController.description.text = "";
             memoryController.imageURL = "";
+            memoryController.audioURL = "";
             break;
           case TaskState.paused:
             print("File upload was paused");
@@ -340,6 +404,8 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
       memoryController.title.text = "";
       memoryController.description.text = "";
       memoryController.imageURL = "";
+      memoryController.audioURL = "";
     }
   }
+  
 }

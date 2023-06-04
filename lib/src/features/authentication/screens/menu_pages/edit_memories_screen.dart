@@ -200,10 +200,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                         // If the form is valid, update the memory
 
                         // Handle save memory logic
-                        if (memoryController.imageURL != null) {
-                          memoryController
-                              .deletePhotoMemory(memoryController.imageURL!);
-                        }
+
                         await updateFile(memoryController.memoryID);
 
                         // Call the update memory function with widget.memory
@@ -302,6 +299,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
             print("File is uploading");
             break;
           case TaskState.success:
+            memoryController.deletePhotoMemory(memoryController.imageURL!);
             ref.getDownloadURL().then((value) => {print(value)});
             memoryController.imageURL = await ref.getDownloadURL();
             final memory = MemoryModel(
@@ -334,4 +332,6 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
       memoryController.editMemories(memory, memoryController.memoryID);
     }
   }
+
+  
 }
