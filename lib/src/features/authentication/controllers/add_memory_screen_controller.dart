@@ -53,4 +53,8 @@ class MemoryController extends GetxController {
   Future<void> deletePhotoMemory(String photoURL) async {
     await memoryRepo.deleteImage(photoURL);
   }
+
+  Future<void> deleteAudioMemory(String audioURL) async {
+    await memoryRepo.deleteAudio(audioURL);
+  }
 }

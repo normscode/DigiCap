@@ -159,6 +159,11 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                                     .deletePhotoMemory(
                                                         memory.photoURL!);
                                               }
+                                              if (memory.voiceTagURL != null) {
+                                                memoryController
+                                                    .deleteAudioMemory(
+                                                        memory.voiceTagURL!);
+                                              }
                                               Navigator.pop(
                                                   context); // Close the dialog
                                             },

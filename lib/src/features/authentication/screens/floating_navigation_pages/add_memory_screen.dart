@@ -348,12 +348,68 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
     if (result != null) {
       myAudio = File(result.files.single.path!);
       setState(() {});
-      Get.back();
     }
   }
 
   Future<void> uploadFile() async {
-    if (myImage != null) {
+    if (myAudio != null && myImage != null) {
+      final audioFile = myAudio;
+      final audioMetaData = SettableMetadata(contentType: 'audio/mpeg');
+      final storageRef = FirebaseStorage.instance.ref();
+      Reference audioRef = storageRef
+          .child('voicetags/${DateTime.now().microsecondsSinceEpoch}.mp3');
+      final audioUploadTask = audioRef.putFile(audioFile!, audioMetaData);
+
+      audioUploadTask.snapshotEvents.listen((audioEvent) async {
+        switch (audioEvent.state) {
+          case TaskState.running:
+            print("Audio file is uploading");
+            break;
+          case TaskState.success:
+            audioRef.getDownloadURL().then((audioValue) => print(audioValue));
+            memoryController.audioURL = await audioRef.getDownloadURL();
+            final imageFile = myImage!;
+            final imageMetaData = SettableMetadata(contentType: 'image/jpeg');
+            Reference imageRef = storageRef
+                .child('memories/${DateTime.now().microsecondsSinceEpoch}.jpg');
+            final imageUploadTask = imageRef.putFile(imageFile, imageMetaData);
+
+            imageUploadTask.snapshotEvents.listen((imageEvent) async {
+              switch (imageEvent.state) {
+                case TaskState.running:
+                  print("Image file is uploading");
+                  break;
+                case TaskState.success:
+                  imageRef
+                      .getDownloadURL()
+                      .then((imageValue) => print(imageValue));
+                  memoryController.imageURL = await imageRef.getDownloadURL();
+                  createMemory();
+                  break;
+                case TaskState.paused:
+                  print("Image file upload was paused");
+                  break;
+                case TaskState.canceled:
+                  print("Image file upload was cancelled");
+                  break;
+                case TaskState.error:
+                  print("Image file upload error!");
+                  break;
+              }
+            });
+            break;
+          case TaskState.paused:
+            print("Audio file upload was paused");
+            break;
+          case TaskState.canceled:
+            print("Audio file upload was cancelled");
+            break;
+          case TaskState.error:
+            print("Audio file upload error!");
+            break;
+        }
+      });
+    } else if (myImage != null) {
       final file = myImage;
       final metaData = SettableMetadata(contentType: 'image/jpeg');
       final storageRef = FirebaseStorage.instance.ref();
@@ -369,18 +425,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
           case TaskState.success:
             ref.getDownloadURL().then((value) => {print(value)});
             memoryController.imageURL = await ref.getDownloadURL();
-            final memory = MemoryModel(
-              title: memoryController.title.text.trim(),
-              description: memoryController.description.text.trim(),
-              date: memoryController.getCurrentFormattedDate(),
-              photoURL: memoryController.imageURL!.trim(),
-              voiceTagURL: memoryController.audioURL!.trim(),
-            );
-            memoryController.createMemories(memory);
-            memoryController.title.text = "";
-            memoryController.description.text = "";
-            memoryController.imageURL = "";
-            memoryController.audioURL = "";
+            createMemoryImage();
             break;
           case TaskState.paused:
             print("File upload was paused");
@@ -393,8 +438,37 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
             break;
         }
       });
+    } else if (myAudio != null) {
+      final audioFile = myAudio;
+      final audioMetaData = SettableMetadata(contentType: 'audio/mpeg');
+      final storageRef = FirebaseStorage.instance.ref();
+      Reference audioRef = storageRef
+          .child('voicetags/${DateTime.now().microsecondsSinceEpoch}.mp3');
+      final audioUploadTask = audioRef.putFile(audioFile!, audioMetaData);
+
+      audioUploadTask.snapshotEvents.listen((audioEvent) async {
+        switch (audioEvent.state) {
+          case TaskState.running:
+            print("Audio file is uploading");
+            break;
+          case TaskState.success:
+            audioRef.getDownloadURL().then((audioValue) => print(audioValue));
+            memoryController.audioURL = await audioRef.getDownloadURL();
+            createMemoryAudio();
+            break;
+          case TaskState.paused:
+            print("Audio file upload was paused");
+            break;
+          case TaskState.canceled:
+            print("Audio file upload was cancelled");
+            break;
+          case TaskState.error:
+            print("Audio file upload error!");
+            break;
+        }
+      });
     } else {
-      // Handle the case when no picture is selected
+      // Handle the case when no picture is selected or No Audio File is Selected
       final memory = MemoryModel(
         title: memoryController.title.text.trim(),
         description: memoryController.description.text.trim(),
@@ -407,5 +481,47 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
       memoryController.audioURL = "";
     }
   }
-  
+
+  createMemory() {
+    final memory = MemoryModel(
+      title: memoryController.title.text.trim(),
+      description: memoryController.description.text.trim(),
+      date: memoryController.getCurrentFormattedDate(),
+      photoURL: memoryController.imageURL!.trim(),
+      voiceTagURL: memoryController.audioURL!.trim(),
+    );
+    memoryController.createMemories(memory);
+    memoryController.title.text = "";
+    memoryController.description.text = "";
+    memoryController.imageURL = "";
+    memoryController.audioURL = "";
+  }
+
+  createMemoryImage() {
+    final memory = MemoryModel(
+      title: memoryController.title.text.trim(),
+      description: memoryController.description.text.trim(),
+      date: memoryController.getCurrentFormattedDate(),
+      photoURL: memoryController.imageURL!.trim(),
+    );
+    memoryController.createMemories(memory);
+    memoryController.title.text = "";
+    memoryController.description.text = "";
+    memoryController.imageURL = "";
+    memoryController.audioURL = "";
+  }
+
+  createMemoryAudio() {
+    final memory = MemoryModel(
+      title: memoryController.title.text.trim(),
+      description: memoryController.description.text.trim(),
+      date: memoryController.getCurrentFormattedDate(),
+      voiceTagURL: memoryController.audioURL!.trim(),
+    );
+    memoryController.createMemories(memory);
+    memoryController.title.text = "";
+    memoryController.description.text = "";
+    memoryController.imageURL = "";
+    memoryController.audioURL = "";
+  }
 }

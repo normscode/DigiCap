@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final MemoryController memoryController = MemoryController();
   File? myImage;
+  File? myAudio;
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
     memoryController.date = widget.memory.date;
     memoryController.imageURL = widget.memory.photoURL;
     memoryController.memoryID = widget.memory.id!;
+    memoryController.audioURL = widget.memory.voiceTagURL;
   }
 
   @override
@@ -186,6 +189,70 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                   ),
                 ),
                 SizedBox(height: 16.0),
+                Text(
+                  'Voice Tag Story',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Container(
+                  width: 500,
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Text("Click Upload Icon Below to Add Audio"),
+                      SizedBox(height: 5.0),
+                      InkWell(
+                        onTap: () {
+                          getAudio();
+                        },
+                        child: Container(
+                          width: 300,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: myAudio == null
+                              ? Center(
+                                  child: Icon(
+                                    Icons.upload_file,
+                                    size: 50,
+                                  ),
+                                )
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.music_note,
+                                      size: 50,
+                                    ),
+                                    Text(
+                                      'Audio Selected',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16.0),
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
@@ -284,8 +351,79 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
     }
   }
 
+  getAudio() async {
+    final FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.audio,
+      allowMultiple: false,
+    );
+
+    if (result != null) {
+      myAudio = File(result.files.single.path!);
+      setState(() {});
+    }
+  }
+
   Future<void> updateFile(String memoryID) async {
-    if (myImage != null) {
+    if (myAudio != null && myImage != null) {
+      final audioFile = myAudio;
+      final audioMetaData = SettableMetadata(contentType: 'audio/mpeg');
+      final storageRef = FirebaseStorage.instance.ref();
+      Reference audioRef = storageRef
+          .child('voicetags/${DateTime.now().microsecondsSinceEpoch}.mp3');
+      final audioUploadTask = audioRef.putFile(audioFile!, audioMetaData);
+
+      audioUploadTask.snapshotEvents.listen((audioEvent) async {
+        switch (audioEvent.state) {
+          case TaskState.running:
+            print("Audio file is uploading");
+            break;
+          case TaskState.success:
+            memoryController.deletePhotoMemory(memoryController.imageURL!);
+            memoryController.deleteAudioMemory(memoryController.audioURL!);
+            audioRef.getDownloadURL().then((audioValue) => print(audioValue));
+            memoryController.audioURL = await audioRef.getDownloadURL();
+            final imageFile = myImage!;
+            final imageMetaData = SettableMetadata(contentType: 'image/jpeg');
+            Reference imageRef = storageRef
+                .child('memories/${DateTime.now().microsecondsSinceEpoch}.jpg');
+            final imageUploadTask = imageRef.putFile(imageFile, imageMetaData);
+
+            imageUploadTask.snapshotEvents.listen((imageEvent) async {
+              switch (imageEvent.state) {
+                case TaskState.running:
+                  print("Image file is uploading");
+                  break;
+                case TaskState.success:
+                  imageRef
+                      .getDownloadURL()
+                      .then((imageValue) => print(imageValue));
+                  memoryController.imageURL = await imageRef.getDownloadURL();
+                  updateMemory();
+                  break;
+                case TaskState.paused:
+                  print("Image file upload was paused");
+                  break;
+                case TaskState.canceled:
+                  print("Image file upload was cancelled");
+                  break;
+                case TaskState.error:
+                  print("Image file upload error!");
+                  break;
+              }
+            });
+            break;
+          case TaskState.paused:
+            print("Audio file upload was paused");
+            break;
+          case TaskState.canceled:
+            print("Audio file upload was cancelled");
+            break;
+          case TaskState.error:
+            print("Audio file upload error!");
+            break;
+        }
+      });
+    } else if (myImage != null) {
       final file = myImage;
       final metaData = SettableMetadata(contentType: 'image/jpeg');
       final storageRef = FirebaseStorage.instance.ref();
@@ -299,16 +437,12 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
             print("File is uploading");
             break;
           case TaskState.success:
-            memoryController.deletePhotoMemory(memoryController.imageURL!);
+            if (memoryController.imageURL != null) {
+              memoryController.deletePhotoMemory(memoryController.imageURL!);
+            }
             ref.getDownloadURL().then((value) => {print(value)});
             memoryController.imageURL = await ref.getDownloadURL();
-            final memory = MemoryModel(
-              title: memoryController.title.text.trim(),
-              description: memoryController.description.text.trim(),
-              date: memoryController.getCurrentFormattedDate(),
-              photoURL: memoryController.imageURL!.trim(),
-            );
-            memoryController.editMemories(memory, memoryController.memoryID);
+            updateMemory();
             break;
           case TaskState.paused:
             print("File upload was paused");
@@ -321,17 +455,52 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
             break;
         }
       });
+    } else if (myAudio != null) {
+      final audioFile = myAudio;
+      final audioMetaData = SettableMetadata(contentType: 'audio/mpeg');
+      final storageRef = FirebaseStorage.instance.ref();
+      Reference audioRef = storageRef
+          .child('voicetags/${DateTime.now().microsecondsSinceEpoch}.mp3');
+      final audioUploadTask = audioRef.putFile(audioFile!, audioMetaData);
+
+      audioUploadTask.snapshotEvents.listen((audioEvent) async {
+        switch (audioEvent.state) {
+          case TaskState.running:
+            print("Audio file is uploading");
+            break;
+          case TaskState.success:
+            if (memoryController.audioURL != null) {
+              memoryController.deleteAudioMemory(memoryController.audioURL!);
+            }
+            audioRef.getDownloadURL().then((audioValue) => print(audioValue));
+            memoryController.audioURL = await audioRef.getDownloadURL();
+            updateMemory();
+            break;
+          case TaskState.paused:
+            print("Audio file upload was paused");
+            break;
+          case TaskState.canceled:
+            print("Audio file upload was cancelled");
+            break;
+          case TaskState.error:
+            print("Audio file upload error!");
+            break;
+        }
+      });
     } else {
-      // Handle the case when no picture is selected
-      final memory = MemoryModel(
-        title: memoryController.title.text.trim(),
-        description: memoryController.description.text.trim(),
-        photoURL: memoryController.imageURL!.trim(),
-        date: memoryController.getCurrentFormattedDate(),
-      );
-      memoryController.editMemories(memory, memoryController.memoryID);
+      // Handle the case when no picture is selected and audio is null
+      updateMemory();
     }
   }
 
-  
+  updateMemory() {
+    final memory = MemoryModel(
+      title: memoryController.title.text.trim(),
+      description: memoryController.description.text.trim(),
+      photoURL: memoryController.imageURL?.trim() ?? '',
+      date: memoryController.getCurrentFormattedDate(),
+      voiceTagURL: memoryController.audioURL?.trim() ?? '',
+    );
+    memoryController.editMemories(memory, memoryController.memoryID);
+  }
 }

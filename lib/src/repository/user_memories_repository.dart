@@ -77,7 +77,16 @@ class MemoriesRepository extends GetxController {
       'Description': memory.description,
       'Date': memory.date,
       'PhotoURL': memory.photoURL,
-    });
+      'voiceTagURL': memory.voiceTagURL,
+    }).whenComplete(
+      () => Get.snackbar(
+        "Memory Updated!",
+        'You have successfully updated a memory',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+      ),
+    );
   }
 
   //Delete Method for Memories
@@ -105,6 +114,19 @@ class MemoriesRepository extends GetxController {
     Get.snackbar(
       "Deleted!",
       "Memory Photo Deleted!",
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.green.withOpacity(0.1),
+      colorText: Colors.green,
+    );
+  }
+
+  //Delete Audio from Firebase Storage voicetags
+  Future<void> deleteAudio(String audioURL) async {
+    Reference ref = FirebaseStorage.instance.refFromURL(audioURL);
+    await ref.delete();
+    Get.snackbar(
+      "Deleted!",
+      "Memory Audio Deleted!",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green.withOpacity(0.1),
       colorText: Colors.green,
