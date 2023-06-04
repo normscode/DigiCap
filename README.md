@@ -1,4 +1,4 @@
-# time_capsule
+# DigiCap
 
 A new Flutter project.
 
