@@ -10,7 +10,8 @@ class LoginScreen extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
 
   Future<void> _launchURL(String url) async {
-    final Uri uri = Uri(scheme: "https", host: url);
+    final Uri uri =
+        Uri(scheme: "https", host: url, path: "/DigiCapTC/digicaptc.html");
     if (!await launchUrl(
       uri,
       mode: LaunchMode.externalApplication,
@@ -184,7 +185,7 @@ class LoginScreen extends StatelessWidget {
                         Flexible(
                           child: GestureDetector(
                             onTap: () {
-                              _launchURL("www.google.com");
+                              _launchURL("normanazares.github.io");
                             },
                             child: RichText(
                               overflow: TextOverflow.ellipsis,
