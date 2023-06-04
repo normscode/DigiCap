@@ -55,7 +55,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   path_provider: ^2.0.15
   file_picker: ^5.3.1
-  
+  line_awesome_flutter: ^2.0.0
+  audioplayers: ^4.1.0
   
 
 flutter_icons:

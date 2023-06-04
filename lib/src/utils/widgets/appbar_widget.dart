@@ -28,6 +28,7 @@ class mainAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Expanded(
               child: TextField(
+                onChanged: (value) {},
                 decoration: InputDecoration(
                   hintText: 'Search for anything...',
                   border: InputBorder.none,

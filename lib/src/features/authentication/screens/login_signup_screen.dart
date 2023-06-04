@@ -226,6 +226,7 @@ class LoginScreen extends StatelessWidget {
                           email: authController.email.text.trim(),
                           password: authController.password.text.trim(),
                           fullName: authController.fullName.text.trim(),
+                          date: authController.getCurrentFormattedDate(),
                         );
                         authController.createUser(user);
                       } else {
@@ -238,7 +239,6 @@ class LoginScreen extends StatelessWidget {
                         );
                       }
                     }
-                    
                   },
                 ),
               ],

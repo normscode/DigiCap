@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
+import 'package:time_capsule/src/features/authentication/controllers/add_memory_screen_controller.dart';
 import 'package:time_capsule/src/features/authentication/screens/login_signup_screen.dart';
 import 'package:time_capsule/src/repository/user_repository.dart';
-
 import '../models/user_model.dart';
 import '../screens/main_screen.dart';
 
@@ -14,6 +16,7 @@ class AuthController extends GetxController {
   TextEditingController confirmPassword = TextEditingController();
   RxBool acceptTerms = false.obs;
   static AuthController get instance => Get.find();
+  final MemoryController memoryController = Get.put(MemoryController());
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final userRepo = Get.put(UserRepository());
 
@@ -25,6 +28,17 @@ class AuthController extends GetxController {
   // Method to check if the terms and conditions are accepted
   bool isTermsAccepted() {
     return acceptTerms.value;
+  }
+
+  Timestamp getCurrentFormattedDate() {
+    DateTime now = DateTime.now();
+    return Timestamp.fromDate(now);
+  }
+
+  String formatTimeStamp(Timestamp timestamp) {
+    DateTime dateTime = timestamp.toDate();
+    String formattedDate = DateFormat('d MMM y').format(dateTime);
+    return formattedDate;
   }
 
   //Signup Method

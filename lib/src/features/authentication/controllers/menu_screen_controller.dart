@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
+import 'package:time_capsule/src/features/authentication/screens/menu_pages/edit_profile_screen.dart';
 
 import '../screens/menu_pages/albums_page.dart';
 import '../screens/menu_pages/manage_memories_page.dart';
@@ -53,6 +54,20 @@ class MenusController extends GetxController {
       page: AlbumPage(),
       onTap: () {
         Get.to(() => AlbumPage());
+      },
+    ),
+    ListItem(
+      icon: Icons.person,
+      title: 'Profile',
+      description: 'View and Edit your profile',
+      iconBackgroundColor: Color.fromARGB(255, 56, 177, 0),
+      iconColor: Colors.white,
+      titleColor: Colors.orange,
+      descriptionColor: Colors.black.withOpacity(0.3),
+      iconBorderRadius: BorderRadius.circular(10),
+      page: EditProfileScreen(),
+      onTap: () {
+        Get.to(() => EditProfileScreen());
       },
     ),
     ListItem(
