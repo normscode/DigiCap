@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/menu_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/reminders_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/tools_screen.dart';
+import 'package:time_capsule/src/features/authentication/screens/menu_pages/albums_page.dart';
+import 'package:time_capsule/src/utils/widgets/future_development.dart';
 import '../../../utils/widgets/appbar_widget.dart';
 import 'package:floating_action_bubble_custom/floating_action_bubble_custom.dart';
 import 'floating_navigation_pages/add_memory_screen.dart';
@@ -78,17 +81,19 @@ class _MainScreenState extends State<MainScreen>
             icon: Icons.group_add,
             style: const TextStyle(fontSize: 14, color: Colors.white),
             onPressed: () {
+              Get.to(() => ToBeDevelopedScreen());
               _animationController.reverse();
             },
           ),
           // Floating action menu item
           BubbleMenu(
-            title: "Upload Photos",
+            title: "View Photos",
             iconColor: Colors.white,
             bubbleColor: Colors.orange,
             icon: Icons.photo,
             style: const TextStyle(fontSize: 13, color: Colors.white),
             onPressed: () {
+              Get.to(() => AlbumPage());
               _animationController.reverse();
             },
           ),
@@ -100,12 +105,8 @@ class _MainScreenState extends State<MainScreen>
             icon: FontAwesomeIcons.heartCirclePlus,
             style: const TextStyle(fontSize: 14, color: Colors.white),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => SaveMemoryScreen(),
-                ),
-              );
+              Get.to(() => SaveMemoryScreen());
+
               _animationController.reverse();
             },
           ),
