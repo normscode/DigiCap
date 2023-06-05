@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, prefer_const_constructors, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

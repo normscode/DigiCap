@@ -23,30 +23,30 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 1, 87, 156),
+        backgroundColor: const Color.fromARGB(255, 1, 87, 156),
         body: Align(
           alignment: Alignment.center,
           child: Container(
-            color: Color.fromARGB(255, 16, 111, 158),
+            color: const Color.fromARGB(255, 16, 111, 158),
             width: 300,
             height: 400,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "DigiCap",
                   style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Image.asset(
                   "assets/logo/logo2.png", // Replace with your logo image path
                   width: 100,
                   height: 100,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     showLoginDialog(context);
@@ -60,14 +60,14 @@ class LoginScreen extends StatelessWidget {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.orange),
                       fixedSize:
-                          MaterialStateProperty.all<Size>(Size(270, 50))),
+                          MaterialStateProperty.all<Size>(const Size(270, 50))),
                   child: Text(
                     'Sign In',
                     style: GoogleFonts.orbitron(
                         fontWeight: FontWeight.w900, fontSize: 20),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     //showSignupDialog(context);
@@ -82,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.orange),
                       fixedSize:
-                          MaterialStateProperty.all<Size>(Size(270, 50))),
+                          MaterialStateProperty.all<Size>(const Size(270, 50))),
                   child: Text(
                     'Sign Up Today',
                     style: GoogleFonts.orbitron(
@@ -106,7 +106,7 @@ class LoginScreen extends StatelessWidget {
         return Center(
           child: SingleChildScrollView(
             child: AlertDialog(
-              title: Text('Signup'),
+              title: const Text('Signup'),
               content: Form(
                 key: formKey,
                 child: Column(
@@ -114,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     TextFormField(
                       controller: authController.fullName,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Full Name',
                       ),
                       validator: (value) {
@@ -126,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: authController.email,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Email',
                       ),
                       validator: (value) {
@@ -144,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: authController.password,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Password',
                       ),
                       validator: (value) {
@@ -160,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: authController.confirmPassword,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Confirm Password',
                       ),
                       validator: (value) {
@@ -189,7 +189,7 @@ class LoginScreen extends StatelessWidget {
                             },
                             child: RichText(
                               overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
+                              text: const TextSpan(
                                 text: 'Accept ',
                                 style: TextStyle(color: Colors.black),
                                 children: [
@@ -212,13 +212,13 @@ class LoginScreen extends StatelessWidget {
               ),
               actions: [
                 ElevatedButton(
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                   onPressed: () {
                     Get.back();
                   },
                 ),
                 ElevatedButton(
-                  child: Text('Signup'),
+                  child: const Text('Signup'),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
                       if (authController.isTermsAccepted()) {
@@ -259,7 +259,7 @@ class LoginScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Login'),
+          title: const Text('Login'),
           content: Form(
             key: formKey,
             child: Column(
@@ -267,7 +267,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 TextFormField(
                   controller: authController.email,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                   ),
                   validator: (value) {
@@ -285,7 +285,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: authController.password,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                   ),
                   validator: (value) {
@@ -304,13 +304,13 @@ class LoginScreen extends StatelessWidget {
           ),
           actions: [
             ElevatedButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Get.back();
               },
             ),
             ElevatedButton(
-              child: Text('Login'),
+              child: const Text('Login'),
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   await authController.login();

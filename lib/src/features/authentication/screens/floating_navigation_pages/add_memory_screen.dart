@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,6 +11,8 @@ import 'package:time_capsule/src/features/authentication/screens/main_screen.dar
 import '../../controllers/add_memory_screen_controller.dart';
 
 class SaveMemoryScreen extends StatefulWidget {
+  const SaveMemoryScreen({super.key});
+
   @override
   State<SaveMemoryScreen> createState() => _SaveMemoryScreenState();
 }
@@ -24,18 +28,18 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a Memory'),
+        title: const Text('Add a Memory'),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Form(
             key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(
+                  padding: const EdgeInsets.all(
                       10.0), // Optional: Add padding to the container
                   decoration: BoxDecoration(
                     // Optional: Add decoration properties to the container
@@ -46,28 +50,27 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Title',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       TextFormField(
                         controller: memoryController.title,
                         decoration: InputDecoration(
-                          hintText: 'My Memory on ' +
-                              memoryController.formatTimeStamp(
-                                  memoryController.getCurrentFormattedDate()),
-                          border: OutlineInputBorder(),
+                          hintText: 'My Memory on ${memoryController.formatTimeStamp(
+                                  memoryController.getCurrentFormattedDate())}',
+                          border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -79,9 +82,9 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Container(
-                  padding: EdgeInsets.all(
+                  padding: const EdgeInsets.all(
                       10.0), // Optional: Add padding to the container
                   decoration: BoxDecoration(
                     // Optional: Add decoration properties to the container
@@ -92,25 +95,25 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Description',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       TextFormField(
                         controller: memoryController.description,
                         maxLines: 4,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Click here to write about this memory...',
                           border: OutlineInputBorder(),
                         ),
@@ -124,18 +127,18 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   'Photo',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Container(
                   width: 500,
-                  padding: EdgeInsets.all(
+                  padding: const EdgeInsets.all(
                       10.0), // Optional: Add padding to the container
                   decoration: BoxDecoration(
                     // Optional: Add decoration properties to the container
@@ -146,14 +149,14 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     children: [
-                      Text("Click Upload Icon Below to Add Photo"),
-                      SizedBox(height: 5.0),
+                      const Text("Click Upload Icon Below to Add Photo"),
+                      const SizedBox(height: 5.0),
                       InkWell(
                         onTap: () {
                           openBottomSheet();
@@ -180,18 +183,18 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   'Voice Tag Story',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Container(
                   width: 500,
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -200,14 +203,14 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     children: [
-                      Text("Click Upload Icon Below to Add Audio"),
-                      SizedBox(height: 5.0),
+                      const Text("Click Upload Icon Below to Add Audio"),
+                      const SizedBox(height: 5.0),
                       InkWell(
                         onTap: () {
                           getAudio();
@@ -220,13 +223,13 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: myAudio == null
-                              ? Center(
+                              ? const Center(
                                   child: Icon(
                                     Icons.upload_file,
                                     size: 50,
                                   ),
                                 )
-                              : Column(
+                              : const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
@@ -244,12 +247,12 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(
+                      fixedSize: const Size(
                           300, 50), // Set the width and height of the button
                       backgroundColor:
                           Colors.orange, // Set the background color to orange
@@ -258,13 +261,13 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
                       if (formKey.currentState!.validate()) {
                         // If the form is valid, save the memory
                         await uploadFile();
-                        Get.to(() => MainScreen());
+                        Get.to(() => const MainScreen());
                       }
                       // If the form is valid, save the memory
 
                       // Handle save memory logic
                     },
-                    child: Text(
+                    child: const Text(
                       'Save Memory',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -281,7 +284,7 @@ class _SaveMemoryScreenState extends State<SaveMemoryScreen> {
   openBottomSheet() {
     Get.bottomSheet(
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8), topRight: Radius.circular(8)),

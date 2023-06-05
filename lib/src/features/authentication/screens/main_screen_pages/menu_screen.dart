@@ -21,7 +21,7 @@ class MenuScreen extends StatelessWidget {
                     borderRadius:
                         menuController.menuItems[index].iconBorderRadius,
                   ),
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: Icon(
                     menuController.menuItems[index].icon,
                     color: menuController.menuItems[index].iconColor,
@@ -45,7 +45,7 @@ class MenuScreen extends StatelessWidget {
                   menuController.menuItems[index].onTap();
                 },
               ),
-              Divider(),
+              const Divider(),
             ],
           );
         },

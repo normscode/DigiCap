@@ -5,12 +5,14 @@ import '../../controllers/profile_controller.dart';
 import '../../models/user_model.dart';
 
 class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -109,10 +111,10 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 30),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Text(
                               'Joined: ${controller.formatTimeStamp(userData.date!)}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

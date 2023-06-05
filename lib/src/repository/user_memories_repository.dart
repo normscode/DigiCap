@@ -1,3 +1,5 @@
+// ignore_for_file: body_might_complete_normally_catch_error, avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

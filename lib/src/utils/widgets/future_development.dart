@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ToBeDevelopedScreen extends StatelessWidget {
+  const ToBeDevelopedScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To Be Developed'),
+        title: const Text('To Be Developed'),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

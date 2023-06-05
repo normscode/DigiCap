@@ -13,22 +13,22 @@ class MainScreenController extends GetxController {
     ListItem(
       label: 'Home',
       icon: Icons.home,
-      page: HomeScreen(),
+      page: const HomeScreen(),
     ),
     ListItem(
       label: 'Tools',
       icon: Icons.build,
-      page: ToolScreen(),
+      page: const ToolScreen(),
     ),
     ListItem(
       label: 'Notifications',
       icon: Icons.notifications,
-      page: ReminderScreen(),
+      page: const ReminderScreen(),
     ),
     ListItem(
       label: 'Menu',
       icon: Icons.menu,
-      page: MenuScreen(),
+      page: const MenuScreen(),
     ),
   ];
 

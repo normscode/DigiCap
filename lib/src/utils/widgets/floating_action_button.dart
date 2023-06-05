@@ -1,8 +1,8 @@
 import 'package:animated_floating_buttons/widgets/animated_floating_action_button.dart';
 import 'package:flutter/material.dart';
 
-class mainFloatingActionButton extends StatelessWidget {
-  const mainFloatingActionButton({
+class MainFloatingActionButton extends StatelessWidget {
+  const MainFloatingActionButton({
     super.key,
   });
 
@@ -16,23 +16,23 @@ class mainFloatingActionButton extends StatelessWidget {
           fabButtons: <Widget>[
             // Add new memory option
             FloatingActionButton(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               onPressed: () {
                 // Add your logic for adding a new memory
               },
               heroTag: 'add_memory',
               tooltip: 'Add Memory',
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
             // Upload photos option
             FloatingActionButton(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               onPressed: () {
                 // Add your logic for uploading photos
               },
               heroTag: 'upload_photos',
               tooltip: 'Upload Photos',
-              child: Icon(Icons.cloud_upload),
+              child: const Icon(Icons.cloud_upload),
             ),
           ],
           colorStartAnimation: Colors.orange,

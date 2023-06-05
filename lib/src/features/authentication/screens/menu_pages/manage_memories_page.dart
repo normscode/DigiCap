@@ -8,6 +8,8 @@ import '../../models/memory_model.dart';
 import '../main_screen_pages/view_full_memory_screen.dart';
 
 class MemoriesPage extends StatefulWidget {
+  const MemoriesPage({super.key});
+
   @override
   State<MemoriesPage> createState() => _MemoriesPageState();
 }
@@ -27,13 +29,14 @@ class _MemoriesPageState extends State<MemoriesPage> {
     final memoryController = Get.put(MemoryController());
 
     return Scaffold(
-      appBar: AppBar(title: Text("Manage Memories")),
+      appBar: AppBar(title: const Text("Manage Memories")),
+      // ignore: avoid_unnecessary_containers
       body: Container(
         child: StreamBuilder<List<MemoryModel>>(
           stream: controller.getUserData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
@@ -52,10 +55,10 @@ class _MemoriesPageState extends State<MemoriesPage> {
                         color: Colors.blue,
                         illustration: UnDrawIllustration.moments,
                         placeholder: Container(),
-                        errorWidget: Icon(Icons.error_outline,
+                        errorWidget: const Icon(Icons.error_outline,
                             color: Colors.red, size: 50),
                       ),
-                      Text("No memories found"),
+                      const Text("No memories found"),
                     ],
                   ),
                 );
@@ -66,15 +69,15 @@ class _MemoriesPageState extends State<MemoriesPage> {
                     final MemoryModel memory = memories[index];
                     return Card(
                       margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 16.0),
+                                const SizedBox(width: 16.0),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -82,17 +85,17 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                     children: [
                                       Text(
                                         memory.title,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20.0,
                                         ),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      SizedBox(height: 4.0),
+                                      const SizedBox(height: 4.0),
                                       Text(
                                         memory.description,
-                                        style: TextStyle(fontSize: 14.0),
+                                        style: const TextStyle(fontSize: 14.0),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -101,7 +104,7 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Image.network(
                               memory.photoURL ??
                                   'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/digiapp%2Fundraw_moments_0y20.png?alt=media&token=110dfbf5-fe35-4d88-91b1-3b54096d8e78',
@@ -115,22 +118,22 @@ class _MemoriesPageState extends State<MemoriesPage> {
                               height: 200,
                               width: 300,
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Text(
                               controller.formatTimeStamp(memory.date!),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14.0,
                                 color: Colors.grey,
                               ),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 IconButton(
                                   color: Colors.orange,
-                                  icon: Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit),
                                   onPressed: () {
                                     // Navigate to the Edit Memory Screen
                                     navigateToUpdateScreenMemory(memory);
@@ -138,14 +141,14 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                 ),
                                 IconButton(
                                   color: Colors.red,
-                                  icon: Icon(Icons.delete),
+                                  icon: const Icon(Icons.delete),
                                   onPressed: () {
                                     // Show a confirmation dialog before deleting the memory
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                        title: Text('Delete Memory'),
-                                        content: Text(
+                                        title: const Text('Delete Memory'),
+                                        content: const Text(
                                             'Are you sure you want to delete this memory?'),
                                         actions: [
                                           TextButton(
@@ -166,28 +169,28 @@ class _MemoriesPageState extends State<MemoriesPage> {
                                               Navigator.pop(
                                                   context); // Close the dialog
                                             },
-                                            child: Text('Delete'),
+                                            child: const Text('Delete'),
                                           ),
                                           TextButton(
                                             onPressed: () {
                                               Navigator.pop(
                                                   context); // Close the dialog
                                             },
-                                            child: Text('Cancel'),
+                                            child: const Text('Cancel'),
                                           ),
                                         ],
                                       ),
                                     );
                                   },
                                 ),
-                                SizedBox(width: 16.0),
+                                const SizedBox(width: 16.0),
                                 TextButton.icon(
                                   onPressed: () {
                                     // Navigate to the Full Memory Screen to view/edit the memory
                                     navigateToViewFullMemory(memory);
                                   },
-                                  icon: Icon(Icons.open_in_new),
-                                  label: Text('View Full Memory'),
+                                  icon: const Icon(Icons.open_in_new),
+                                  label: const Text('View Full Memory'),
                                 ),
                               ],
                             ),
@@ -199,7 +202,7 @@ class _MemoriesPageState extends State<MemoriesPage> {
                 );
               }
             } else {
-              return Center(child: Text('No memories found.'));
+              return const Center(child: Text('No memories found.'));
             }
           },
         ),

@@ -6,6 +6,8 @@ import '../../models/memory_model.dart';
 import '../main_screen_pages/view_full_memory_screen.dart';
 
 class AlbumPage extends StatefulWidget {
+  const AlbumPage({super.key});
+
   @override
   State<AlbumPage> createState() => _AlbumPageState();
 }
@@ -20,13 +22,14 @@ class _AlbumPageState extends State<AlbumPage> {
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
     return Scaffold(
-      appBar: AppBar(title: Text("Album Page")),
+      appBar: AppBar(title: const Text("Album Page")),
+      // ignore: avoid_unnecessary_containers
       body: Container(
         child: StreamBuilder<List<MemoryModel>>(
           stream: controller.getUserData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
@@ -45,10 +48,10 @@ class _AlbumPageState extends State<AlbumPage> {
                         color: Colors.blue,
                         illustration: UnDrawIllustration.moments,
                         placeholder: Container(),
-                        errorWidget: Icon(Icons.error_outline,
+                        errorWidget: const Icon(Icons.error_outline,
                             color: Colors.red, size: 50),
                       ),
-                      Text("No Photo Memory found"),
+                      const Text("No Photo Memory found"),
                     ],
                   ),
                 );
@@ -59,15 +62,15 @@ class _AlbumPageState extends State<AlbumPage> {
                     final MemoryModel memory = memories[index];
                     return Card(
                       margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 16.0),
+                                const SizedBox(width: 16.0),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -76,19 +79,19 @@ class _AlbumPageState extends State<AlbumPage> {
                                       Text(
                                         controller
                                             .formatTimeStamp(memory.date!),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14.0,
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      SizedBox(height: 16.0),
+                                      const SizedBox(height: 16.0),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Image.network(
                               memory.photoURL ??
                                   'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/digiapp%2Fundraw_moments_0y20.png?alt=media&token=110dfbf5-fe35-4d88-91b1-3b54096d8e78',
@@ -102,15 +105,15 @@ class _AlbumPageState extends State<AlbumPage> {
                               height: 200,
                               width: 300,
                             ),
-                            SizedBox(height: 8.0),
-                            SizedBox(width: 16.0),
+                            const SizedBox(height: 8.0),
+                            const SizedBox(width: 16.0),
                             TextButton.icon(
                               onPressed: () {
                                 // Navigate to the Full Memory Screen to view/edit the memory
                                 navigateToViewFullMemory(memory);
                               },
-                              icon: Icon(Icons.open_in_new),
-                              label: Text('View Full Memory'),
+                              icon: const Icon(Icons.open_in_new),
+                              label: const Text('View Full Memory'),
                             ),
                           ],
                         ),
@@ -120,7 +123,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 );
               }
             } else {
-              return Center(child: Text('No Photo Memory found.'));
+              return const Center(child: Text('No Photo Memory found.'));
             }
           },
         ),

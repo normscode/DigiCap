@@ -14,7 +14,7 @@ class ToolScreen extends StatelessWidget {
     return Scaffold(
       body: GridView.count(
         crossAxisCount: 2, // Number of columns in the grid
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         crossAxisSpacing: 16.0, // Spacing between columns
         mainAxisSpacing: 16.0, // Spacing between rows
         children: [
@@ -26,7 +26,7 @@ class ToolScreen extends StatelessWidget {
             titleColor: Colors.orange,
             onTap: () {
               // Handle tool selection for News Feed
-              Get.offAll(() => MainScreen());
+              Get.offAll(() => const MainScreen());
             },
           ),
           ToolCard(
@@ -37,28 +37,28 @@ class ToolScreen extends StatelessWidget {
             titleColor: Colors.orange,
             onTap: () {
               // Handle tool selection for Memories
-              Get.to(() => MemoriesPage());
+              Get.to(() => const MemoriesPage());
             },
           ),
           ToolCard(
             toolName: 'Photos',
             iconData: Icons.camera_alt,
-            iconBackgroundColor: Color.fromARGB(255, 71, 0, 36),
+            iconBackgroundColor: const Color.fromARGB(255, 71, 0, 36),
             iconColor: Colors.white,
             titleColor: Colors.orange,
             onTap: () {
               // Handle tool selection for Photos
-              Get.to(() => AlbumPage());
+              Get.to(() => const AlbumPage());
             },
           ),
           ToolCard(
             toolName: 'Groups',
             iconData: Icons.group_add,
-            iconBackgroundColor: Color.fromARGB(255, 85, 0, 85),
+            iconBackgroundColor: const Color.fromARGB(255, 85, 0, 85),
             iconColor: Colors.white,
             titleColor: Colors.orange,
             onTap: () {
-              Get.to(() => ToBeDevelopedScreen());
+              Get.to(() => const ToBeDevelopedScreen());
             },
           ),
         ],
@@ -75,6 +75,7 @@ class ToolCard extends StatelessWidget {
   final Color titleColor;
   final VoidCallback onTap;
 
+  // ignore: use_key_in_widget_constructors
   const ToolCard({
     required this.toolName,
     required this.iconData,
@@ -98,7 +99,7 @@ class ToolCard extends StatelessWidget {
               size: 48.0,
               color: iconColor,
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               toolName,
               style: TextStyle(fontSize: 16.0, color: titleColor),

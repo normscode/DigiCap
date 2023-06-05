@@ -20,9 +20,9 @@ class MenusController extends GetxController {
       titleColor: Colors.orange,
       descriptionColor: Colors.black.withOpacity(0.3),
       iconBorderRadius: BorderRadius.circular(10),
-      page: MainScreen(),
+      page: const MainScreen(),
       onTap: () {
-        Get.offAll(() => MainScreen());
+        Get.offAll(() => const MainScreen());
         debugPrint("NewsPageTapped!");
       },
     ),
@@ -35,9 +35,9 @@ class MenusController extends GetxController {
       titleColor: Colors.orange,
       descriptionColor: Colors.black.withOpacity(0.3),
       iconBorderRadius: BorderRadius.circular(10),
-      page: MemoriesPage(),
+      page: const MemoriesPage(),
       onTap: () {
-        Get.to(() => MemoriesPage());
+        Get.to(() => const MemoriesPage());
         debugPrint("ManageMemoriesTapped!");
       },
     ),
@@ -50,30 +50,30 @@ class MenusController extends GetxController {
       titleColor: Colors.orange,
       descriptionColor: Colors.black.withOpacity(0.3),
       iconBorderRadius: BorderRadius.circular(10),
-      page: AlbumPage(),
+      page: const AlbumPage(),
       onTap: () {
-        Get.to(() => AlbumPage());
+        Get.to(() => const AlbumPage());
       },
     ),
     ListItem(
       icon: Icons.person,
       title: 'Profile',
       description: 'View and Edit your profile',
-      iconBackgroundColor: Color.fromARGB(255, 56, 177, 0),
+      iconBackgroundColor: const Color.fromARGB(255, 56, 177, 0),
       iconColor: Colors.white,
       titleColor: Colors.orange,
       descriptionColor: Colors.black.withOpacity(0.3),
       iconBorderRadius: BorderRadius.circular(10),
-      page: EditProfileScreen(),
+      page: const EditProfileScreen(),
       onTap: () {
-        Get.to(() => EditProfileScreen());
+        Get.to(() => const EditProfileScreen());
       },
     ),
     ListItem(
       icon: Icons.logout,
       title: 'Logout',
       description: 'Logout from DigiCap',
-      iconBackgroundColor: Color.fromARGB(255, 226, 185, 0),
+      iconBackgroundColor: const Color.fromARGB(255, 226, 185, 0),
       iconColor: Colors.white,
       titleColor: Colors.orange,
       descriptionColor: Colors.black.withOpacity(0.3),

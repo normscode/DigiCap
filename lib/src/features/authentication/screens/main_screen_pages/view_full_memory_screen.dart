@@ -8,7 +8,7 @@ import '../../models/memory_model.dart';
 class ViewFullMemoryScreen extends StatefulWidget {
   final MemoryModel memory;
 
-  const ViewFullMemoryScreen({required this.memory});
+  const ViewFullMemoryScreen({super.key, required this.memory});
 
   @override
   State<ViewFullMemoryScreen> createState() => _ViewFullMemoryScreenState();
@@ -17,33 +17,33 @@ class ViewFullMemoryScreen extends StatefulWidget {
 class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
   final player = AudioPlayer();
   bool playing = false;
-  Duration duration = new Duration();
-  Duration position = new Duration();
+  Duration duration = const Duration();
+  Duration position = const Duration();
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeScreenController());
     return Scaffold(
       appBar: AppBar(
-        title: Text('Memory Full View'),
+        title: const Text('Memory Full View'),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Text(
                 controller.formatTimeStamp(widget.memory.date!),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0,
                   color: Colors.grey,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Center(
                 child: Container(
-                  padding: EdgeInsets.all(
+                  padding: const EdgeInsets.all(
                       10.0), // Optional: Add padding to the container
                   decoration: BoxDecoration(
                     // Optional: Add decoration properties to the container
@@ -54,7 +54,7 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -62,14 +62,14 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                   child: Text(
                     widget.memory.title,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Container(
-                padding: EdgeInsets.all(
+                padding: const EdgeInsets.all(
                     10.0), // Optional: Add padding to the container
                 decoration: BoxDecoration(
                   // Optional: Add decoration properties to the container
@@ -80,14 +80,14 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 width: 300,
                 child: Text(
                   widget.memory.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18.0,
                   ),
                   textAlign: TextAlign.justify,
@@ -95,9 +95,9 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                   // Set indentation to 16.0
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Container(
-                padding: EdgeInsets.all(
+                padding: const EdgeInsets.all(
                     10.0), // Optional: Add padding to the container
                 decoration: BoxDecoration(
                   // Optional: Add decoration properties to the container
@@ -108,7 +108,7 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
@@ -126,9 +126,9 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Container(
-                padding: EdgeInsets.all(
+                padding: const EdgeInsets.all(
                     10.0), // Optional: Add padding to the container
                 decoration: BoxDecoration(
                   // Optional: Add decoration properties to the container
@@ -139,14 +139,14 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 width: 300,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Voice Tag Story',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -154,7 +154,7 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     voiceTagSection(),
                   ],
                 ),
@@ -186,7 +186,7 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
         ],
       );
     } else {
-      return Text(
+      return const Text(
         'No Voice Tag found',
         style: TextStyle(
           fontWeight: FontWeight.normal,
@@ -206,7 +206,7 @@ class _ViewFullMemoryScreenState extends State<ViewFullMemoryScreen> {
         max: duration.inSeconds.toDouble(),
         onChanged: (double value) {
           setState(() {
-            player.seek(new Duration(seconds: value.toInt()));
+            player.seek(Duration(seconds: value.toInt()));
           });
         });
   }

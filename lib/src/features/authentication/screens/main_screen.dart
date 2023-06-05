@@ -22,10 +22,10 @@ class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   int currentTab = 0;
   final List<Widget> screens = [
-    HomeScreen(),
-    ToolScreen(),
-    ReminderScreen(),
-    MenuScreen(),
+    const HomeScreen(),
+    const ToolScreen(),
+    const ReminderScreen(),
+    const MenuScreen(),
   ];
 
   late Animation<double> _animation;
@@ -46,15 +46,15 @@ class _MainScreenState extends State<MainScreen>
   }
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomeScreen();
+  Widget currentScreen = const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: mainAppBar(),
+      appBar: const MainAppBar(),
       body: PageStorage(
-        child: currentScreen,
         bucket: bucket,
+        child: currentScreen,
       ),
       floatingActionButton: FloatingActionBubble(
         // animation controller
@@ -81,7 +81,7 @@ class _MainScreenState extends State<MainScreen>
             icon: Icons.group_add,
             style: const TextStyle(fontSize: 14, color: Colors.white),
             onPressed: () {
-              Get.to(() => ToBeDevelopedScreen());
+              Get.to(() => const ToBeDevelopedScreen());
               _animationController.reverse();
             },
           ),
@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen>
             icon: Icons.photo,
             style: const TextStyle(fontSize: 13, color: Colors.white),
             onPressed: () {
-              Get.to(() => AlbumPage());
+              Get.to(() => const AlbumPage());
               _animationController.reverse();
             },
           ),
@@ -105,7 +105,7 @@ class _MainScreenState extends State<MainScreen>
             icon: FontAwesomeIcons.heartCirclePlus,
             style: const TextStyle(fontSize: 14, color: Colors.white),
             onPressed: () {
-              Get.to(() => SaveMemoryScreen());
+              Get.to(() => const SaveMemoryScreen());
 
               _animationController.reverse();
             },
@@ -113,6 +113,7 @@ class _MainScreenState extends State<MainScreen>
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        // ignore: sized_box_for_whitespace
         child: Container(
           height: 60,
           child: Row(
@@ -125,7 +126,7 @@ class _MainScreenState extends State<MainScreen>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = HomeScreen();
+                        currentScreen = const HomeScreen();
                         currentTab = 0;
                       });
                     },
@@ -150,7 +151,7 @@ class _MainScreenState extends State<MainScreen>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = ToolScreen();
+                        currentScreen = const ToolScreen();
                         currentTab = 1;
                       });
                     },
@@ -175,7 +176,7 @@ class _MainScreenState extends State<MainScreen>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = ReminderScreen();
+                        currentScreen = const ReminderScreen();
                         currentTab = 2;
                       });
                     },
@@ -200,7 +201,7 @@ class _MainScreenState extends State<MainScreen>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = MenuScreen();
+                        currentScreen = const MenuScreen();
                         currentTab = 3;
                       });
                     },

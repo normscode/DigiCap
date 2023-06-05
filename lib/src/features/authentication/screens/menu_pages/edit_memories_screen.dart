@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -11,9 +13,10 @@ import '../../models/memory_model.dart';
 class UpdateMemoryScreen extends StatefulWidget {
   final MemoryModel memory;
 
-  UpdateMemoryScreen({required this.memory});
+  const UpdateMemoryScreen({super.key, required this.memory});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UpdateMemoryScreenState createState() => _UpdateMemoryScreenState();
 }
 
@@ -38,18 +41,18 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Memory'),
+        title: const Text('Update Memory'),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Form(
             key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -58,26 +61,26 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Title',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       TextFormField(
                         controller: memoryController.title,
                         decoration: InputDecoration(
                           hintText: 'My Memory on ${DateTime.now().toString()}',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -89,9 +92,9 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -100,25 +103,25 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Description',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       TextFormField(
                         controller: memoryController.description,
                         maxLines: 4,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter the description',
                           border: OutlineInputBorder(),
                         ),
@@ -132,18 +135,18 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   'Photos',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Container(
                   width: 500,
-                  padding: EdgeInsets.all(
+                  padding: const EdgeInsets.all(
                       10.0), // Optional: Add padding to the container
                   decoration: BoxDecoration(
                     // Optional: Add decoration properties to the container
@@ -154,14 +157,14 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     children: [
-                      Text("Click Upload Icon Below to Replace Photo"),
-                      SizedBox(height: 5.0),
+                      const Text("Click Upload Icon Below to Replace Photo"),
+                      const SizedBox(height: 5.0),
                       InkWell(
                         onTap: () {
                           openBottomSheet();
@@ -188,18 +191,18 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   'Voice Tag Story',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Container(
                   width: 500,
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -208,14 +211,14 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Column(
                     children: [
-                      Text("Click Upload Icon Below to Add Audio"),
-                      SizedBox(height: 5.0),
+                      const Text("Click Upload Icon Below to Add Audio"),
+                      const SizedBox(height: 5.0),
                       InkWell(
                         onTap: () {
                           getAudio();
@@ -228,13 +231,13 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: myAudio == null
-                              ? Center(
+                              ? const Center(
                                   child: Icon(
                                     Icons.upload_file,
                                     size: 50,
                                   ),
                                 )
-                              : Column(
+                              : const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
@@ -252,12 +255,12 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(
+                      fixedSize: const Size(
                           300, 50), // Set the width and height of the button
                       backgroundColor:
                           Colors.orange, // Set the background color to orange
@@ -272,11 +275,12 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
 
                         // Call the update memory function with widget.memory
 
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(
                             context); // Go back to the previous screen
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       'Update Memory',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -293,7 +297,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
   openBottomSheet() {
     Get.bottomSheet(
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8), topRight: Radius.circular(8)),
@@ -319,6 +323,7 @@ class _UpdateMemoryScreenState extends State<UpdateMemoryScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   BuildImageWidget({required IconData iconData, required Function onPressed}) {
     return InkWell(
       onTap: () => onPressed(),

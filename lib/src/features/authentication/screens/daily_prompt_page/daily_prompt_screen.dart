@@ -8,21 +8,23 @@ List<String> memoryPrompts = [
 ];
 
 class DailyPromptPage extends StatelessWidget {
+  const DailyPromptPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     String prompt = getRandomPrompt();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daily Memory Prompt'),
+        title: const Text('Daily Memory Prompt'),
       ),
       body: Center(
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               prompt,
-              style: TextStyle(fontSize: 20.0),
+              style: const TextStyle(fontSize: 20.0),
             ),
           ),
         ),

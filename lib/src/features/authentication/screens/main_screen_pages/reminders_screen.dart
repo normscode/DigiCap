@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
 class ReminderScreen extends StatefulWidget {
+  const ReminderScreen({super.key});
+
   @override
   _MemoryPromptsPageState createState() => _MemoryPromptsPageState();
 }
@@ -209,7 +213,7 @@ class _MemoryPromptsPageState extends State<ReminderScreen> {
       body: Center(
         child: Container(
           padding:
-              EdgeInsets.all(20.0), // Optional: Add padding to the container
+              const EdgeInsets.all(20.0), // Optional: Add padding to the container
           decoration: BoxDecoration(
             // Optional: Add decoration properties to the container
             color: Colors.white,
@@ -219,7 +223,7 @@ class _MemoryPromptsPageState extends State<ReminderScreen> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -227,7 +231,7 @@ class _MemoryPromptsPageState extends State<ReminderScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(
+                padding: const EdgeInsets.all(
                     10.0), // Optional: Add padding to the container
                 decoration: BoxDecoration(
                   // Optional: Add decoration properties to the container
@@ -238,20 +242,20 @@ class _MemoryPromptsPageState extends State<ReminderScreen> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Text(
                   promptTitle,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 promptDescription,
                 textAlign: TextAlign.center,

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_undraw/ms_undraw.dart';
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           stream: controller.getUserData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
@@ -40,12 +42,12 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.blue,
                         illustration: UnDrawIllustration.moments,
                         placeholder: Container(),
-                        errorWidget: Icon(Icons.error_outline,
+                        errorWidget: const Icon(Icons.error_outline,
                             color: Colors.red, size: 50),
                       ),
-                      Text("No memories found"),
-                      SizedBox(height: 20.0),
-                      Text("Click + Button to Add a Memory"),
+                      const Text("No memories found"),
+                      const SizedBox(height: 20.0),
+                      const Text("Click + Button to Add a Memory"),
                     ],
                   ),
                 );
@@ -58,20 +60,20 @@ class HomeScreen extends StatelessWidget {
                         controller.formatTimeDuration(memory.date!);
                     return Card(
                       margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                CircleAvatar(
+                                const CircleAvatar(
                                   radius: 24.0,
                                   backgroundImage: AssetImage(
                                       "assets/images/profile-empty.png"),
                                 ),
-                                SizedBox(width: 16.0),
+                                const SizedBox(width: 16.0),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -79,23 +81,23 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         memory.title,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16.0,
                                         ),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      SizedBox(height: 4.0),
+                                      const SizedBox(height: 4.0),
                                       Text(
                                         memory.description,
-                                        style: TextStyle(fontSize: 14.0),
+                                        style: const TextStyle(fontSize: 14.0),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       Text(
                                         timeDuration,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 16.0,
                                           color: Colors.grey,
                                         ),
@@ -105,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Image.network(
                               memory.photoURL ??
                                   'https://firebasestorage.googleapis.com/v0/b/digiapp-721c2.appspot.com/o/digiapp%2Fundraw_moments_0y20.png?alt=media&token=110dfbf5-fe35-4d88-91b1-3b54096d8e78',
@@ -119,16 +121,16 @@ class HomeScreen extends StatelessWidget {
                               height: 200,
                               width: 300,
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             Text(
                               controller.formatTimeStamp(memory.date!),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14.0,
                                 color: Colors.grey,
                               ),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Align(
                               alignment: Alignment.centerRight,
                               child: TextButton.icon(
@@ -136,8 +138,8 @@ class HomeScreen extends StatelessWidget {
                                   // Navigate to the Full Memory Screen to view/edit the memory
                                   navigateToViewFullMemory(memory);
                                 },
-                                icon: Icon(Icons.open_in_new),
-                                label: Text('View Full Memory'),
+                                icon: const Icon(Icons.open_in_new),
+                                label: const Text('View Full Memory'),
                               ),
                             ),
                           ],
@@ -148,7 +150,7 @@ class HomeScreen extends StatelessWidget {
                 );
               }
             } else {
-              return Center(child: Text('No memories found.'));
+              return const Center(child: Text('No memories found.'));
             }
           },
         ),
