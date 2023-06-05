@@ -100,6 +100,11 @@ class EditProfileScreen extends StatelessWidget {
                                     date: userData.date,
                                   );
                                   await controller.updateRecord(user);
+
+                                  if (password.text.trim() !=
+                                      userData.password) {
+                                    await controller.updatePassword(user);
+                                  }
                                 },
                                 // Get.to(() => const UpdateProfileScreen()),
                                 style: ElevatedButton.styleFrom(
@@ -114,7 +119,8 @@ class EditProfileScreen extends StatelessWidget {
                             const SizedBox(height: 16.0),
                             Text(
                               'Joined: ${controller.formatTimeStamp(userData.date!)}',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

@@ -30,4 +30,8 @@ class ProfileController extends GetxController {
   updateRecord(UserModel user) async {
     await _userRepo.updateUserRecord(user);
   }
+  updatePassword(UserModel user)async {
+    await _userRepo.updateUserPassword(user);
+  }
+
 }

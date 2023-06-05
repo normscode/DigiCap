@@ -47,6 +47,18 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  Future<void> updateUserPassword(UserModel user) async {
+    await _auth.currentUser?.updatePassword(user.password).whenComplete(
+          () => Get.snackbar(
+            "Success",
+            "Your password has been updated.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.withOpacity(0.1),
+            colorText: Colors.green,
+          ),
+        );
+  }
+
   Future<void> updateUserRecord(UserModel user) async {
     // await _db
     //     .collection("Users")
@@ -59,15 +71,6 @@ class UserRepository extends GetxController {
     //           colorText: Colors.green),
     //     );
     try {
-      await _auth.currentUser?.updatePassword(user.password).whenComplete(
-            () => Get.snackbar(
-              "Success",
-              "Your password has been updated.",
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.green.withOpacity(0.1),
-              colorText: Colors.green,
-            ),
-          );
       await _db
           .collection("Users")
           .doc(user.email)
