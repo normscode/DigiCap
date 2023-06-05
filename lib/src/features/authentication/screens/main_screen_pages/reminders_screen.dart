@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'dart:math';
 
 class ReminderScreen extends StatefulWidget {
@@ -202,39 +201,6 @@ class _MemoryPromptsPageState extends State<ReminderScreen> {
       promptTitle = randomPrompt;
       promptDescription = 'Take a moment to recall and describe your response.';
     });
-  }
-
-  void _scheduleDailyNotification() {
-    final content = NotificationContent(
-      id: 1,
-      channelKey: 'daily_prompts',
-      title: promptTitle,
-      body: promptDescription,
-    );
-
-    final now = DateTime.now();
-    final schedule = NotificationCalendar(
-      weekday: now.weekday,
-      hour: now.hour,
-      minute: now.minute,
-      second: now.second + 5, // Schedule after 5 seconds
-      millisecond: now.millisecond,
-      allowWhileIdle: true,
-    );
-
-    // final schedule = NotificationCalendar(
-    //   weekday: DateTime.now().weekday,
-    //   hour: 0, // Set the desired time for the notification
-    //   minute: 0,
-    //   second: 5,
-    //   millisecond: 0,
-    //   allowWhileIdle: true,
-    // );
-
-    AwesomeNotifications().createNotification(
-      content: content,
-      schedule: schedule,
-    );
   }
 
   @override

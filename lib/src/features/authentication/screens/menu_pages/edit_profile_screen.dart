@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import '../../controllers/authentication_controller.dart';
 import '../../controllers/profile_controller.dart';
 import '../../models/user_model.dart';
 

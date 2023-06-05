@@ -6,7 +6,6 @@ import 'package:time_capsule/src/features/authentication/screens/menu_pages/edit
 import '../../controllers/home_screen_controller.dart';
 import '../../models/memory_model.dart';
 import '../main_screen_pages/view_full_memory_screen.dart';
-import 'dart:async';
 
 class MemoriesPage extends StatefulWidget {
   @override

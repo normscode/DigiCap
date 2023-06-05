@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:time_capsule/src/features/authentication/screens/main_screen.dart';
-import 'package:time_capsule/src/features/authentication/screens/main_screen_pages/home_screen.dart';
 import 'package:time_capsule/src/features/authentication/screens/menu_pages/edit_profile_screen.dart';
 
 import '../screens/menu_pages/albums_page.dart';
