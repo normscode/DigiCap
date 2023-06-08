@@ -73,6 +73,7 @@ class EditProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 30 - 20),
                             TextFormField(
+                              enabled: false,
                               controller: email,
                               decoration: const InputDecoration(
                                   label: Text('E-mail'),
@@ -81,6 +82,7 @@ class EditProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 30 - 20),
                             TextFormField(
+                              enabled: false,
                               controller: password,
                               obscureText: true,
                               decoration: const InputDecoration(
